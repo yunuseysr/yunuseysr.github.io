@@ -10,6 +10,19 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+
+@media only screen and (min-width: 991px) {
+  .navbar-nav .nav-item:last-child {
+    position: absolute;
+    bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 100%;
+  }
+}
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
