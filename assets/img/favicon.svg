@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.5" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="stroke" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#a855f7" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Dark rounded tile -->
+  <rect x="8" y="8" width="240" height="240" rx="54" fill="#0a0e1a"/>
+  <rect x="8.5" y="8.5" width="239" height="239" rx="53.5" fill="none" stroke="url(#stroke)" stroke-width="3"/>
+
+  <!-- Neural edges forming the Y -->
+  <g stroke="url(#g)" stroke-width="20" stroke-linecap="round" fill="none">
+    <line x1="74" y1="72" x2="128" y2="142"/>
+    <line x1="182" y1="72" x2="128" y2="142"/>
+    <line x1="128" y1="142" x2="128" y2="196"/>
+  </g>
+
+  <!-- Neural nodes -->
+  <g fill="#0a0e1a" stroke="url(#g)" stroke-width="9">
+    <circle cx="74" cy="72" r="17"/>
+    <circle cx="182" cy="72" r="17"/>
+    <circle cx="128" cy="196" r="17"/>
+  </g>
+  <circle cx="128" cy="142" r="13" fill="url(#g)"/>
+</svg>

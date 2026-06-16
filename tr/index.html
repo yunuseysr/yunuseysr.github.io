@@ -1,283 +1,369 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
+
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-    <title>Yunus Emre Yaşar</title>
+    <meta name="description"
+          content="Yunus Emre Yaşar — Büyük Veri &amp; Yapay Zeka Mühendisi. Vestel'de Kıdemli Yazılım Uzmanı; makine öğrenmesi, bilgisayarla görme ve veri odaklı sistemler geliştiriyor."/>
+    <meta name="author" content="Yunus Emre Yaşar"/>
+    <meta name="theme-color" content="#0a0e1a"/>
+    <title>Yunus Emre Yaşar — Büyük Veri &amp; Yapay Zeka Mühendisi</title>
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico"/>
-    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet"
-          type="text/css"/>
-    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css"
-          type="text/css"/>
+    <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg"/>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Yunus Emre Yaşar — Büyük Veri &amp; Yapay Zeka Mühendisi"/>
+    <meta property="og:description" content="Vestel'de Kıdemli Yazılım Uzmanı. Yapay zeka, makine öğrenmesi, bilgisayarla görme ve büyük veri sistemleri."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="../assets/img/avatar.jpg"/>
+
+    <!-- Fonts & icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+          rel="stylesheet"/>
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+
     <link href="../css/styles.css" rel="stylesheet"/>
 </head>
-<body id="page-top">
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none">Yunus Emre YASAR</span>
-        <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2"
-                                             src="../assets/img/profile.jpg" alt="..."/></span>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
-            class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">HAKKIMDA</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">DENEYİM</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">EĞİTİM</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">BECERİLER</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">İLGİ ALANLARI</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">BAŞARILAR</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/"><i class="flag-icon flag-icon-gb"></i>
-                English</a></li>
-        </ul>
+
+<body id="top">
+
+<!-- Mobil üst bar -->
+<header class="topbar">
+    <span class="topbar__name">Yunus Emre <span style="color:var(--cyan)">Yaşar</span></span>
+    <button class="topbar__toggle" id="navToggle" aria-label="Menüyü aç"><i class="fas fa-bars"></i></button>
+</header>
+
+<div class="nav-backdrop" id="navBackdrop"></div>
+
+<!-- ============================================================= Kenar çubuğu -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">
+        <div class="avatar"><img src="../assets/img/avatar.jpg" alt="Yunus Emre Yaşar"/></div>
+        <h1 class="sidebar__name">Yunus Emre Yaşar</h1>
+        <p class="sidebar__role">
+            Kıdemli Yazılım Uzmanı @ Vestel
+            <br/><span class="chip-mini">Büyük Veri &amp; Yapay Zeka</span>
+        </p>
     </div>
-</nav>
-<!-- Page Content-->
-<div class="container-fluid p-0">
-    <!-- About-->
-    <section class="resume-section" id="about">
-        <div class="resume-section-content">
-            <h1 class="mb-0">
-                Yunus Emre
-                <span class="text-primary">YAŞAR</span>
-            </h1>
-            <div class="subheading mb-5">
-                <a href="mailto:name@email.com">yunuseysr@gmail.com</a>
-            </div>
-            <p class="lead mb-5">Manisa Celal Bayar Üniversitesi Bilgisayar Mühendisliği bölümünden bu yıl birincilikle
-                mezun oldum. Akademik sürecim içerisinde farklı yetenekler edinme, projeler geliştirme ve araştırma
-                noktasında kendimi geliştirdim. Günümüz teknolojileri üzerinden yapay zeka ve görüntü işleme projeleri
-                yapmış bulunmaktayım. İş yaşamımda ve gönüllü faaliyetlerinde hızlı ve etkili olmakla son derece hevesli
-                ve sorumlu olduğumu, çalışma alanlarımın gerektirdiği bütün işleyiş ve sorumluluğunu merak ve istekle
-                üzerime almak istediğimi belirtmek isterim. Dikkatli, özenli ve süreklilikle yapılan işlerin sonuçların
-                çoğunlukla başarı ile sonuçlanacağını düşünmekteyim.</p>
-            <div class="social-icons">
-                <a class="social-icon" href="https://www.linkedin.com/in/yunusemreyasar/" target="_blank"><i
-                        class="fab fa-linkedin-in"></i></a>
-                <a class="social-icon" href="https://github.com/yunuseysr" target="_blank"><i class="fab fa-github"></i></a>
-                <a class="social-icon" href="https://twitter.com/yunuseysr" target="_blank"><i
-                        class="fab fa-twitter"></i></a>
-                <a class="social-icon" href="https://www.facebook.com/yunuseysr" target="_blank"><i
-                        class="fab fa-facebook-f"></i></a>
-                <a class="social-icon" href="https://www.instagram.com/yunusemreyasar" target="_blank"><i
-                        class="fab fa-instagram"></i></a>
-                <a class="social-icon" href="https://stackoverflow.com/users/10436808/yunus-emre-yaşar" target="_blank"><i
-                        class="fab fa-stack-overflow"></i></a>
-            </div>
+
+    <nav>
+        <ul class="nav" id="nav">
+            <li><a href="#about" class="active"><i class="fas fa-circle-notch"></i> Hakkımda</a></li>
+            <li><a href="#experience"><i class="fas fa-briefcase"></i> Deneyim</a></li>
+            <li><a href="#skills"><i class="fas fa-microchip"></i> Yetenekler</a></li>
+            <li><a href="#projects"><i class="fas fa-diagram-project"></i> Projeler</a></li>
+            <li><a href="#education"><i class="fas fa-graduation-cap"></i> Eğitim</a></li>
+            <li><a href="#awards"><i class="fas fa-award"></i> Ödüller</a></li>
+            <li><a href="#contact"><i class="fas fa-paper-plane"></i> İletişim</a></li>
+        </ul>
+    </nav>
+
+    <div class="sidebar__spacer"></div>
+
+    <div class="sidebar__footer">
+        <div class="socials">
+            <a href="https://www.linkedin.com/in/yunusemreyasar/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/yunuseysr" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.kaggle.com/yunuseysr" target="_blank" rel="noopener" aria-label="Kaggle"><i class="fab fa-kaggle"></i></a>
+            <a href="https://stackoverflow.com/users/10436808/yunus-emre-yaşar" target="_blank" rel="noopener" aria-label="Stack Overflow"><i class="fab fa-stack-overflow"></i></a>
+            <a href="https://twitter.com/yunuseysr" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/yunusemreyasar" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:yunuseysr@gmail.com" aria-label="E-posta"><i class="fas fa-envelope"></i></a>
+        </div>
+        <div class="lang-toggle">
+            <a href="../index.html">EN</a>
+            <a href="index.html" class="active">TR</a>
+        </div>
+    </div>
+</aside>
+
+<!-- ================================================================ Ana içerik -->
+<main class="main">
+
+    <!-- Hero / Hakkımda -->
+    <section class="hero" id="about">
+        <p class="hero__hi">Merhaba, ben</p>
+        <h1>Yunus Emre <span class="grad">Yaşar</span></h1>
+        <p class="hero__sub"><span id="typed"
+              data-phrases='["Büyük Veri &amp; Yapay Zeka Mühendisi","Makine Öğrenmesi Tutkunu","Bilgisayarla Görme Geliştiricisi","Veri Odaklı Problem Çözücü"]'></span><span class="type-cursor">|</span></p>
+        <p class="hero__lead">
+            Manisa Celal Bayar Üniversitesi Bilgisayar Mühendisliği Bölümü'nden <strong>bölüm birincisi</strong> olarak
+            mezun oldum. Vestel'de Kıdemli Yazılım Uzmanı ve bir Yapay Zeka &amp; Veri Bilimi meraklısı olarak makine
+            öğrenmesi, bilgisayarla görme ve veri odaklı sistemler geliştiriyorum — büyük ve düzensiz veriyi karar veren
+            modellere ve ürünlere dönüştürüyorum. Hızlı çalışır, sorumluluk alır; işleri özen ve süreklilikle yapmaya
+            önem veririm.
+        </p>
+        <div class="hero__cta">
+            <a href="#projects" class="btn btn--primary"><i class="fas fa-diagram-project"></i> Çalışmalarım</a>
+            <a href="#contact" class="btn btn--ghost"><i class="fas fa-paper-plane"></i> İletişime Geç</a>
+        </div>
+
+        <div class="stats">
+            <div class="stat"><div class="stat__num">1.</div><div class="stat__label">Bölüm Birincisi</div></div>
+            <div class="stat"><div class="stat__num">3.61</div><div class="stat__label">GNO / 4.00</div></div>
+            <div class="stat"><div class="stat__num">5+</div><div class="stat__label">YZ / Veri Projesi</div></div>
+            <div class="stat"><div class="stat__num">6+</div><div class="stat__label">Dil &amp; Teknoloji</div></div>
         </div>
     </section>
-    <hr class="m-0"/>
-    <!-- Experience-->
-    <section class="resume-section" id="experience">
-        <div class="resume-section-content">
-            <h2 class="mb-5">Deneyim</h2>
-            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                <div class="flex-grow-1">
-                    <h3 class="mb-0">Yazılım Mühendisi - Stajyer</h3>
-                    <div class="subheading mb-3">Alp Mühendislik, Manisa</div>
-                    <!-- <p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.</p> -->
-                    <ul>
-                        <li>I worked as an Artificial Intelligence Software Engineer within the scope of Intern
-                            Education. I started working with Robotic Operating System and Robotic Solutions. I carried
-                            out studies to develop the artificial intelligence parts of the vehicles on the robot. I
-                            focused on Lidar Mapping, HectorSLAM and SLAM Algorithm applications. With my graduation
-                            project, I integrated the face recognition model and the age/gender model into a common
-                            robot.
-                        </li>
 
-                    </ul>
-                </div>
-                <div class="flex-shrink-0"><span class="text-primary">March 2021 - June 2021</span></div>
-            </div>
-            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                <div class="flex-grow-1">
-                    <h3 class="mb-0">Bilgisayar Mühendisi - Stajyer</h3>
-                    <div class="subheading mb-3">Türk Patent ve Marka Kurumu, Ankara</div>
-                    <!-- <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test.
-                        Override the digital divide with additional clickthroughs from DevOps. Nanotechnology
-                        immersion along the information highway will close the loop on focusing solely on the bottom
-                        line.</p> -->
-                    <ul>
-                        <li>I worked as an Intern Computer Engineer within the scope of the Presidency's project. During
-                            the working process, I received information on network connections and IEEE standards. I
-                            made presentations about OSI Layers and the differences between IPv4 and IPv6.
-                        </li>
-                    </ul>
+    <!-- Deneyim -->
+    <section class="section" id="experience">
+        <span class="section__label" data-reveal>Kariyer</span>
+        <h2 data-reveal>Deneyim</h2>
 
-                </div>
-                <div class="flex-shrink-0"><span class="text-primary">September 2020 - October 2020</span></div>
-            </div>
-            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                <div class="flex-grow-1">
-                    <h3 class="mb-0">Yazılım Mühendisi - Stajyer</h3>
-                    <div class="subheading mb-3">Özkan Demir Çelik San. A.Ş., İzmir</div>
-                    <!-- <p>Podcasting operational change management inside of workflows to establish a framework. Taking
-                        seamless key performance indicators offline to maximise the long tail. Keeping your eye on
-                        the ball while performing a deep dive on the start-up mentality to derive convergence on
-                        cross-platform integration.</p> -->
-                    <ul>
-                        <li>During the Summer Internship, I worked on the system servers and the programs used by the
-                            company in the IT Department. I finished my education by making presentations on C# and SQL
-                            applications and Networks.
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-shrink-0"><span class="text-primary">June 2019 - July 2019</span></div>
-            </div>
-        </div>
-    </section>
-    <hr class="m-0"/>
-    <!-- Education-->
-    <section class="resume-section" id="education">
-        <div class="resume-section-content">
-            <h2 class="mb-5">Eğitim</h2>
-            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                <div class="flex-grow-1">
-                    <h3 class="mb-0">University of Colorado Boulder</h3>
-                    <div class="subheading mb-3">Bachelor of Science</div>
-                    <div>Computer Science - Web Development Track</div>
-                    <p>GPA: 3.23</p>
-                </div>
-                <div class="flex-shrink-0"><span class="text-primary">August 2006 - May 2010</span></div>
-            </div>
-            <div class="d-flex flex-column flex-md-row justify-content-between">
-                <div class="flex-grow-1">
-                    <h3 class="mb-0">James Buchanan High School</h3>
-                    <div class="subheading mb-3">Technology Magnet Program</div>
-                    <p>GPA: 3.56</p>
-                </div>
-                <div class="flex-shrink-0"><span class="text-primary">August 2002 - May 2006</span></div>
-            </div>
-        </div>
-    </section>
-    <hr class="m-0"/>
-    <!-- Skills-->
-    <section class="resume-section" id="skills">
-        <div class="resume-section-content">
-            <h2 class="mb-5">Beceriler</h2>
-            <div class="subheading mb-3">Programming Languages & Tools</div>
-            <ul class="list-inline dev-icons">
-                <li class="list-inline-item"><i class="fab fa-python"></i></li>
-                <li class="list-inline-item"><i class="fab fa-git"></i></li>
-                <li class="list-inline-item"><i class="fab fa-github"></i></li>
-                <!--
-                <li class="list-inline-item"><i class="fab fa-html5"></i></li>
-                <li class="list-inline-item"><i class="fab fa-css3-alt"></i></li>
-                <li class="list-inline-item"><i class="fab fa-js-square"></i></li>
-                <li class="list-inline-item"><i class="fab fa-angular"></i></li>
-                <li class="list-inline-item"><i class="fab fa-react"></i></li>
-                <li class="list-inline-item"><i class="fab fa-node-js"></i></li>
-                <li class="list-inline-item"><i class="fab fa-sass"></i></li>
-                <li class="list-inline-item"><i class="fab fa-less"></i></li>
-                <li class="list-inline-item"><i class="fab fa-wordpress"></i></li>
-                <li class="list-inline-item"><i class="fab fa-gulp"></i></li>
-                <li class="list-inline-item"><i class="fab fa-grunt"></i></li>
-                <li class="list-inline-item"><i class="fab fa-npm"></i></li>
-                --->
-            </ul>
-
-            <div class="subheading mb-3">Workflow</div>
-            <ul class="fa-ul mb-0">
+        <div class="timeline">
+            <div class="tl-item" data-reveal>
+                <div class="tl-item__date">Günümüz</div>
+                <h3 class="tl-item__title">Kıdemli Yazılım Uzmanı</h3>
+                <div class="tl-item__org">Vestel <span class="badge">Büyük Veri &amp; Yapay Zeka</span></div>
                 <p>
-                    "Düzenleniyor..."
+                    Büyük Veri &amp; Yapay Zeka ekibinin bir parçası olarak veri odaklı yazılımlar tasarlayıp hayata
+                    geçiriyorum — büyük ölçekli veri hatlarından, üretimdeki karar süreçlerini destekleyen makine
+                    öğrenmesi ve analitik servislerine kadar. Güvenilir, ölçeklenebilir sistemler kurmaya ve yapay zeka
+                    yeteneklerini gerçek ürünlere taşımaya odaklanıyorum.
                 </p>
-                <!--
-                    <li>
-                        <span class="fa-li"><i class="fas fa-check"></i></span>
-                        Mobile-First, Responsive Design
-                    </li>
-                    <li>
-                        <span class="fa-li"><i class="fas fa-check"></i></span>
-                        Cross Browser Testing & Debugging
-                    </li>
-                    <li>
-                        <span class="fa-li"><i class="fas fa-check"></i></span>
-                        Cross Functional Teams
-                    </li>
-                    <li>
-                        <span class="fa-li"><i class="fas fa-check"></i></span>
-                        Agile Development & Scrum
-                    </li>
-                </ul>
-                --->
+                <div class="tags">
+                    <span class="tag">Büyük Veri</span>
+                    <span class="tag">Makine Öğrenmesi</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Veri Mühendisliği</span>
+                    <span class="tag">SQL</span>
+                </div>
+            </div>
+
+            <div class="tl-item" data-reveal>
+                <div class="tl-item__date">Mar 2021 – Haz 2021</div>
+                <h3 class="tl-item__title">Yapay Zeka Yazılım Mühendisi — Stajyer</h3>
+                <div class="tl-item__org">Alp Mühendislik · Manisa</div>
+                <p>
+                    Otonom robotların yapay zeka alt sistemleri üzerinde Robot İşletim Sistemi (ROS) ile çalıştım. LiDAR
+                    haritalama, Hector SLAM ve SLAM algoritmalarına odaklandım. Bitirme projemde bir yüz tanıma modelini,
+                    yaş/cinsiyet tahmin modeliyle birlikte tek bir robota entegre ettim.
+                </p>
+                <div class="tags">
+                    <span class="tag">ROS</span>
+                    <span class="tag">SLAM</span>
+                    <span class="tag">LiDAR</span>
+                    <span class="tag">Bilgisayarla Görme</span>
+                    <span class="tag">C++</span>
+                </div>
+            </div>
+
+            <div class="tl-item" data-reveal>
+                <div class="tl-item__date">Eyl 2020 – Eki 2020</div>
+                <h3 class="tl-item__title">Bilgisayar Mühendisi — Stajyer</h3>
+                <div class="tl-item__org">Türk Patent ve Marka Kurumu · Ankara</div>
+                <p>
+                    Cumhurbaşkanlığı projesi kapsamında çalıştım. Ağ bağlantıları ve IEEE standartları üzerine bilgi
+                    edindim; OSI katmanları ile IPv4 ve IPv6 arasındaki farklar üzerine sunumlar yaptım.
+                </p>
+                <div class="tags">
+                    <span class="tag">Ağ Teknolojileri</span>
+                    <span class="tag">IEEE Standartları</span>
+                    <span class="tag">OSI / TCP-IP</span>
+                </div>
+            </div>
+
+            <div class="tl-item" data-reveal>
+                <div class="tl-item__date">Haz 2019 – Tem 2019</div>
+                <h3 class="tl-item__title">Yazılım Mühendisi — Stajyer</h3>
+                <div class="tl-item__org">Özkan Demir Çelik San. A.Ş. · İzmir</div>
+                <p>
+                    Bilgi İşlem departmanında şirket sunucuları ve dahili uygulamalar üzerinde çalıştım; stajı C# ve SQL
+                    uygulamaları ile ağlar üzerine sunumlar yaparak tamamladım.
+                </p>
+                <div class="tags">
+                    <span class="tag">C#</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">Sistem / BT</span>
+                </div>
+            </div>
         </div>
     </section>
-    <hr class="m-0"/>
-    <!-- Interests-->
-    <section class="resume-section" id="interests">
-        <div class="resume-section-content">
-            <h2 class="mb-5">İlgi Alanları</h2>
-            <p>
-                "Düzenleniyor..."
-            </p>
-            <!--
-            <p>Apart from being a web developer, I enjoy most of my time being outdoors. In the winter, I am an avid skier and novice ice climber. During the warmer months here in Colorado, I enjoy mountain biking, free climbing, and kayaking.</p>
-            <p class="mb-0">When forced indoors, I follow a number of sci-fi and fantasy genre movies and television shows, I am an aspiring chef, and I spend a large amount of my free time exploring the latest technology advancements in the front-end web development world.</p>
-            --->
+
+    <!-- Yetenekler -->
+    <section class="section" id="skills">
+        <span class="section__label" data-reveal>Araç Kutusu</span>
+        <h2 data-reveal>Yetenekler &amp; Teknolojiler</h2>
+
+        <div class="skill-groups">
+            <div class="skill-group" data-reveal>
+                <h3><i class="fas fa-code"></i> Diller</h3>
+                <div class="chips">
+                    <span class="chip">Python</span>
+                    <span class="chip">Java</span>
+                    <span class="chip">C#</span>
+                    <span class="chip">C / C++</span>
+                    <span class="chip">JavaScript</span>
+                    <span class="chip">SQL</span>
+                </div>
+            </div>
+            <div class="skill-group" data-reveal>
+                <h3><i class="fas fa-brain"></i> Yapay Zeka &amp; Makine Öğrenmesi</h3>
+                <div class="chips">
+                    <span class="chip">Makine Öğrenmesi</span>
+                    <span class="chip">Derin Öğrenme</span>
+                    <span class="chip">Yapay Sinir Ağları (DNN/CNN)</span>
+                    <span class="chip">Bilgisayarla Görme</span>
+                    <span class="chip">Görüntü İşleme</span>
+                    <span class="chip">SLAM / LiDAR</span>
+                    <span class="chip">ROS</span>
+                </div>
+            </div>
+            <div class="skill-group" data-reveal>
+                <h3><i class="fas fa-database"></i> Veri &amp; Bulut</h3>
+                <div class="chips">
+                    <span class="chip">Büyük Veri</span>
+                    <span class="chip">Veri Hatları</span>
+                    <span class="chip">PostgreSQL</span>
+                    <span class="chip">MySQL</span>
+                    <span class="chip">AWS</span>
+                </div>
+            </div>
+            <div class="skill-group" data-reveal>
+                <h3><i class="fas fa-screwdriver-wrench"></i> Araçlar &amp; İş Akışı</h3>
+                <div class="chips">
+                    <span class="chip">Git &amp; GitHub</span>
+                    <span class="chip">Visual Studio</span>
+                    <span class="chip">JetBrains IDE'leri</span>
+                    <span class="chip">Angular</span>
+                    <span class="chip">Çevik (Agile)</span>
+                </div>
+            </div>
         </div>
     </section>
-    <hr class="m-0"/>
-    <!-- Awards-->
-    <section class="resume-section" id="awards">
-        <div class="resume-section-content">
-            <h2 class="mb-5">Başarılar ve Sertifikalar</h2>
-            <p>
-                "Düzenleniyor..."
-            </p>
-            <!--
-            <ul class="fa-ul mb-0">
-                <li>
-                    <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                    Google Analytics Certified Developer
-                </li>
-                <li>
-                    <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                    Mobile Web Specialist - Google Certification
-                </li>
-                <li>
-                    <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                    1
-                    <sup>st</sup>
-                    Place - University of Colorado Boulder - Emerging Tech Competition 2009
-                </li>
-                <li>
-                    <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                    1
-                    <sup>st</sup>
-                    Place - University of Colorado Boulder - Adobe Creative Jam 2008 (UI Design Category)
-                </li>
-                <li>
-                    <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                    2
-                    <sup>nd</sup>
-                    Place - University of Colorado Boulder - Emerging Tech Competition 2008
-                </li>
-                <li>
-                    <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                    1
-                    <sup>st</sup>
-                    Place - James Buchanan High School - Hackathon 2006
-                </li>
-                <li>
-                    <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                    3
-                    <sup>rd</sup>
-                    Place - James Buchanan High School - Hackathon 2005
-                </li>
-            </ul>
-            -->
+
+    <!-- Projeler -->
+    <section class="section" id="projects">
+        <span class="section__label" data-reveal>Seçili Çalışmalar</span>
+        <h2 data-reveal>Projeler</h2>
+
+        <div class="cards">
+            <article class="card" data-reveal>
+                <div class="card__icon"><i class="fas fa-user-shield"></i></div>
+                <h3>Robot Üzerinde Yüz Tanıma</h3>
+                <div class="card__meta">Bitirme Projesi · C++ / Python</div>
+                <p>Bir yüz tanıma modelini, yaş &amp; cinsiyet tahmin modeliyle birlikte tek bir mobil robota entegre ettim; görüntü hattı üzerinde gerçek zamanlı çıkarım çalıştırdım.</p>
+                <div class="tags"><span class="tag">CNN</span><span class="tag">OpenCV</span><span class="tag">ROS</span></div>
+            </article>
+
+            <article class="card" data-reveal>
+                <div class="card__icon"><i class="fas fa-satellite-dish"></i></div>
+                <h3>Hector SLAM ile LiDAR Haritalama</h3>
+                <div class="card__meta">Robotik · 2020</div>
+                <p>Otonom bir araç için LiDAR verisi ve Hector SLAM algoritması kullanarak ROS üzerinde iç mekân haritalama ve konumlandırma hattı geliştirdim.</p>
+                <div class="tags"><span class="tag">SLAM</span><span class="tag">LiDAR</span><span class="tag">ROS</span></div>
+            </article>
+
+            <article class="card" data-reveal>
+                <div class="card__icon"><i class="fas fa-industry"></i></div>
+                <h3>Endüstriyel Görüntü İşleme</h3>
+                <div class="card__meta">Bilgisayarla Görme · Python · 2020</div>
+                <p>Endüstriyel bir ortam için, otomatik denetime yönelik klasik ve derin öğrenme tabanlı görüntü işleme yöntemleri geliştirdim.</p>
+                <div class="tags"><span class="tag">Görüntü İşleme</span><span class="tag">Python</span></div>
+            </article>
+
+            <article class="card" data-reveal>
+                <div class="card__icon"><i class="fas fa-bell"></i></div>
+                <h3>CBÜ Zil Sesleri</h3>
+                <div class="card__meta">Uygulama · Java · 2021</div>
+                <p>Üniversite çalışmaları sırasında geliştirilen, kampüs zil/çalma planlaması sunan bir Java uygulaması projesi.</p>
+                <div class="tags"><span class="tag">Java</span></div>
+            </article>
+
+            <article class="card" data-reveal>
+                <div class="card__icon"><i class="fas fa-database"></i></div>
+                <h3>Big Data E-Ticaret Pipeline'ı</h3>
+                <div class="card__meta">Büyük Veri · Spark / Airflow / AWS</div>
+                <p>Brezilya'nın Olist e-ticaret veri setini (100k+ sipariş, 2016–2018) AWS S3 üzerinde Spark &amp; Airflow veri hattıyla işledim — çok pazaryerli sipariş verisi üzerinde ETL DAG'leri ve analizler kurdum.</p>
+                <div class="tags"><span class="tag">Spark</span><span class="tag">Airflow</span><span class="tag">AWS</span><span class="tag">Büyük Veri</span></div>
+                <a class="card__link" href="https://github.com/yunuseysr/myprojectecommerce" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub'da Gör</a>
+            </article>
+
+            <article class="card" data-reveal>
+                <div class="card__icon"><i class="fas fa-cookie-bite"></i></div>
+                <h3>CNN ile Bisküvi Sınıflandırma</h3>
+                <div class="card__meta">Bilgisayarla Görme · TensorFlow / OpenCV</div>
+                <p>Bisküvileri şekline (yuvarlak / dikdörtgen) ve türüne (kakaolu / sütlü) göre sınıflandıran bir evrişimli sinir ağı (CNN) geliştirdim; OpenCV hattıyla gerçek zamanlı görüntü sınıflandırma yaptım.</p>
+                <div class="tags"><span class="tag">CNN</span><span class="tag">TensorFlow</span><span class="tag">OpenCV</span></div>
+                <a class="card__link" href="https://github.com/yunuseysr/Cins-Biscuits" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub'da Gör</a>
+            </article>
+
+            <article class="card" data-reveal>
+                <div class="card__icon"><i class="fas fa-file-alt"></i></div>
+                <h3>TextSmith — Metin Analiz Aracı</h3>
+                <div class="card__meta">NLP · Python</div>
+                <p>Metin ve PDF dosyalarını analiz eden bir Python aracı — kelime/karakter istatistikleri hesaplar, sonuçları görselleştirir ve duygu analizi yapar.</p>
+                <div class="tags"><span class="tag">Python</span><span class="tag">NLP</span><span class="tag">Duygu Analizi</span></div>
+                <a class="card__link" href="https://github.com/yunuseysr/TextSmith" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub'da Gör</a>
+            </article>
         </div>
     </section>
-</div>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
+
+    <!-- Eğitim -->
+    <section class="section" id="education">
+        <span class="section__label" data-reveal>Geçmiş</span>
+        <h2 data-reveal>Eğitim</h2>
+
+        <div class="edu-item" data-reveal>
+            <div>
+                <h3>Manisa Celal Bayar Üniversitesi</h3>
+                <div class="edu-item__field">Yüksek Lisans — Bilgisayar Mühendisliği (Yapay Zeka &amp; Veri Bilimi)</div>
+                <span class="edu-item__gpa">Lisansüstü · devam ediyor</span>
+            </div>
+            <div class="edu-item__date">Günümüz</div>
+        </div>
+
+        <div class="edu-item" data-reveal>
+            <div>
+                <h3>Manisa Celal Bayar Üniversitesi</h3>
+                <div class="edu-item__field">Lisans — Bilgisayar Mühendisliği, Mühendislik Fakültesi</div>
+                <span class="edu-item__gpa">GNO 3.61 / 4.00 · Bölüm 1.'si</span>
+            </div>
+            <div class="edu-item__date">2016 – 2021</div>
+        </div>
+
+        <div class="edu-item" data-reveal>
+            <div>
+                <h3>Karacasu Kırçiçeği Anadolu Lisesi</h3>
+                <div class="edu-item__field">Sayısal (Matematik &amp; Fen) Programı</div>
+                <span class="edu-item__gpa">Ortalama 86.49 / 100 · Okul 1.'si</span>
+            </div>
+            <div class="edu-item__date">2012 – 2016</div>
+        </div>
+    </section>
+
+    <!-- Ödüller -->
+    <section class="section" id="awards">
+        <span class="section__label" data-reveal>Takdir</span>
+        <h2 data-reveal>Ödüller &amp; Gönüllülük</h2>
+
+        <ul class="ach-list">
+            <li data-reveal><i class="fas fa-trophy"></i><div><strong>Bölüm Birinciliği — Bilgisayar Mühendisliği</strong><br/><span>Manisa Celal Bayar Üniversitesi'nde bölüm birincisi olarak mezun oldum; birincilik ödülünü bölüm başkanından aldım.</span></div></li>
+            <li data-reveal><i class="fas fa-hand-holding-heart"></i><div><strong>Başkan Yardımcısı — Genç Kızılay, Manisa</strong><br/><span>Gençlik kolu organizasyon faaliyetlerini yönettim (2020–2021).</span></div></li>
+            <li data-reveal><i class="fas fa-tower-broadcast"></i><div><strong>Haberleşme Sorumlusu — Kızılay Afet Ekibi, Manisa</strong><br/><span>Manisa afet müdahale ekibinin haberleşmesini koordine ettim (2020–2021).</span></div></li>
+        </ul>
+    </section>
+
+    <!-- İletişim -->
+    <section class="section" id="contact">
+        <div class="contact" data-reveal>
+            <span class="section__label" style="justify-content:center">İletişim</span>
+            <h2>İletişime Geçin</h2>
+            <p>Büyük Veri, Yapay Zeka ve makine öğrenmesi alanlarında iş birlikleri ve sohbetlere açığım. Bana ulaşmanın en hızlı yolu e-posta.</p>
+            <a href="mailto:yunuseysr@gmail.com" class="btn btn--primary"><i class="fas fa-envelope"></i> yunuseysr@gmail.com</a>
+        </div>
+    </section>
+
+    <footer>
+        © <span id="year"></span> Yunus Emre Yaşar · Özenle tasarlandı &amp; geliştirildi ·
+        <a href="https://github.com/yunuseysr" target="_blank" rel="noopener">GitHub</a>
+    </footer>
+</main>
+
 <script src="../js/scripts.js"></script>
 </body>
 </html>
