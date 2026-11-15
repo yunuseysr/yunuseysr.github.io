@@ -203,6 +203,25 @@ body {
     opacity: 0.7;
 }
 
+/* link from the flower page */
+.game-link {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 6px 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(244, 235, 228, 0.15);
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-style: italic;
+    font-size: 1.1rem;
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.game-link:hover {
+    border-color: var(--flower);
+    color: var(--flower);
+}
+
 /* ---------- falling leaves & petals ---------- */
 .fall-field {
     position: fixed;

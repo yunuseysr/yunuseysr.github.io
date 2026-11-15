@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <meta name="theme-color" content="#0d0a0f"/>
+    <title>Renk Sırası</title>
+    <link rel="icon" href="data:,"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+          rel="stylesheet"/>
+
+    <link href="style.css" rel="stylesheet"/>
+</head>
+
+<body class="game-page">
+
+<div class="glow" aria-hidden="true"></div>
+
+<main class="game-stage">
+
+    <header class="game-hud">
+        <a class="back-link" href="./" aria-label="Oyun köşesine dön">← oyunlar</a>
+        <div class="hud-stats">
+            <span><small>tur</small><b id="score">0</b></span>
+            <span><small>rekor</small><b id="best">0</b></span>
+        </div>
+    </header>
+
+    <div class="board board--center">
+        <div class="simon" id="pads">
+            <button type="button" class="pad" data-i="0" aria-label="sarı"></button>
+            <button type="button" class="pad" data-i="1" aria-label="kırmızı"></button>
+            <button type="button" class="pad" data-i="2" aria-label="yeşil"></button>
+            <button type="button" class="pad" data-i="3" aria-label="mavi"></button>
+            <p class="simon__label" id="label" aria-live="polite"></p>
+        </div>
+
+        <div class="overlay" id="overlay">
+            <h1 class="overlay__title" id="ovTitle">Renk Sırası</h1>
+            <p class="overlay__text" id="ovText">Renkler sırayla yanacak.<br>Aynı sırayla sen de dokun, her turda bir renk eklenir.</p>
+            <button class="play-btn" id="playBtn" type="button">başla</button>
+            <p class="overlay__hint">sesi açmayı unutma ♪</p>
+        </div>
+    </div>
+
+</main>
+
+<script src="common.js"></script>
+<script src="renk.js"></script>
+</body>
+</html>

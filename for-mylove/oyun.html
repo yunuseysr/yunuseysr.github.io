@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <meta name="theme-color" content="#0d0a0f"/>
+    <title>Yaprak Yakala ❦</title>
+    <link rel="icon" href="data:,"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+          rel="stylesheet"/>
+
+    <link href="style.css" rel="stylesheet"/>
+    <link href="oyun.css" rel="stylesheet"/>
+</head>
+
+<body class="game-page">
+
+<div class="glow" aria-hidden="true"></div>
+
+<main class="game-stage">
+
+    <header class="game-hud">
+        <a class="back-link" href="./" aria-label="Çiçeğe geri dön">← çiçek</a>
+        <div class="hud-stats">
+            <span><small>yaprak</small><b id="score">0</b></span>
+            <span><small>süre</small><b id="time">60</b></span>
+            <span><small>rekor</small><b id="best">0</b></span>
+        </div>
+    </header>
+
+    <div class="board">
+        <canvas id="game" aria-label="Yaprak yakalama oyunu"></canvas>
+        <p class="combo" id="combo" aria-live="polite"></p>
+
+        <div class="overlay" id="overlay">
+            <h1 class="overlay__title" id="ovTitle">Yaprak Yakala</h1>
+            <p class="overlay__text" id="ovText">
+                Kasımpatının yaprakları rüzgârda savruluyor.<br>
+                Avucunu kaydır, düşenleri topla.
+            </p>
+            <ul class="legend">
+                <li><i class="dot dot--petal"></i> yaprak <b>+1</b></li>
+                <li><i class="dot dot--heart">❤</i> kalp <b>+5</b></li>
+                <li><i class="dot dot--leaf"></i> kuru yaprak, seriyi bozar</li>
+            </ul>
+            <button class="play-btn" id="playBtn" type="button">başla</button>
+            <p class="overlay__hint">parmağınla, fareyle ya da ← → tuşlarıyla</p>
+        </div>
+    </div>
+
+</main>
+
+<script src="oyun.js"></script>
+</body>
+</html>

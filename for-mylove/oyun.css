@@ -1,0 +1,226 @@
+/* Game page — builds on style.css tokens */
+
+.game-page {
+    overflow: hidden;
+}
+
+.game-page .glow {
+    top: 45vh;
+}
+
+.game-stage {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+    height: 100vh;
+    height: 100dvh;
+    margin: 0 auto;
+    padding: 14px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ---------- HUD ---------- */
+.game-hud {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.back-link {
+    color: var(--ink-faint);
+    text-decoration: none;
+    font-style: italic;
+    font-size: 1.05rem;
+}
+
+.back-link:hover {
+    color: var(--ink);
+}
+
+.hud-stats {
+    display: flex;
+    gap: 18px;
+}
+
+.hud-stats span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.05;
+}
+
+.hud-stats small {
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.hud-stats b {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--flower);
+    font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* ---------- board ---------- */
+.board {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    border-radius: 22px;
+    border: 1px solid rgba(244, 235, 228, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.04));
+    overflow: hidden;
+}
+
+#game {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    cursor: none;
+}
+
+.combo {
+    position: absolute;
+    top: 14px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    text-align: center;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--flower);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.combo.show {
+    opacity: 0.9;
+}
+
+/* ---------- overlay ---------- */
+.overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+    background: rgba(13, 10, 15, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: opacity 0.5s ease;
+}
+
+.overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.overlay__title {
+    margin: 0 0 12px;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.2rem, 9vw, 3rem);
+    line-height: 1.1;
+    color: var(--flower);
+}
+
+.overlay__text {
+    margin: 0 0 18px;
+    font-size: clamp(1.1rem, 4.2vw, 1.3rem);
+    line-height: 1.5;
+    color: var(--ink-soft);
+}
+
+.overlay__text b {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.legend {
+    list-style: none;
+    margin: 0 0 22px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 1.05rem;
+    color: var(--ink-faint);
+}
+
+.legend li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.legend b {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 16px;
+    font-style: normal;
+}
+
+.dot--petal {
+    background: var(--flower);
+    border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
+}
+
+.dot--leaf {
+    width: 14px;
+    height: 14px;
+    background: #8e5a2a;
+    border-radius: 0 75% 0 75%;
+}
+
+.dot--heart {
+    width: auto;
+    height: auto;
+    color: #ff5d7a;
+    font-size: 0.95rem;
+}
+
+.play-btn {
+    font: inherit;
+    font-size: 1.35rem;
+    font-style: italic;
+    padding: 10px 40px;
+    border-radius: 999px;
+    border: 1px solid var(--flower);
+    background: var(--flower-soft);
+    color: var(--ink);
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.3s ease;
+}
+
+.play-btn:hover {
+    transform: scale(1.04);
+}
+
+.play-btn:focus-visible {
+    outline: 1px dashed var(--ink-faint);
+    outline-offset: 4px;
+}
+
+.overlay__hint {
+    margin: 14px 0 0;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--ink-faint);
+    opacity: 0.75;
+}
