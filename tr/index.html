@@ -54,7 +54,8 @@
             <li><a href="#about" class="active"><i class="fas fa-circle-notch"></i> Hakkımda</a></li>
             <li><a href="#experience"><i class="fas fa-briefcase"></i> Deneyim</a></li>
             <li><a href="#skills"><i class="fas fa-microchip"></i> Yetenekler</a></li>
-            <li><a href="#projects"><i class="fas fa-diagram-project"></i> Projeler</a></li>
+            <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projeler</a></li>
+            <li><a href="#opensource"><i class="fas fa-code-branch"></i> Açık Kaynak</a></li>
             <li><a href="#education"><i class="fas fa-graduation-cap"></i> Eğitim</a></li>
             <li><a href="#awards"><i class="fas fa-award"></i> Ödüller</a></li>
             <li><a href="#contact"><i class="fas fa-paper-plane"></i> İletişim</a></li>
@@ -69,7 +70,7 @@
             <a href="https://github.com/yunuseysr" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://www.kaggle.com/yunuseysr" target="_blank" rel="noopener" aria-label="Kaggle"><i class="fab fa-kaggle"></i></a>
             <a href="https://stackoverflow.com/users/10436808/yunus-emre-yaşar" target="_blank" rel="noopener" aria-label="Stack Overflow"><i class="fab fa-stack-overflow"></i></a>
-            <a href="https://twitter.com/yunuseysr" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://twitter.com/yunuseysr" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fab fa-twitter"></i></a>
             <a href="https://www.instagram.com/yunusemreyasar" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="mailto:yunuseysr@gmail.com" aria-label="E-posta"><i class="fas fa-envelope"></i></a>
         </div>
@@ -85,6 +86,7 @@
 
     <!-- Hero / Hakkımda -->
     <section class="hero" id="about">
+        <canvas class="hero__net" id="heroNet" aria-hidden="true"></canvas>
         <p class="hero__hi">Merhaba, ben</p>
         <h1>Yunus Emre <span class="grad">Yaşar</span></h1>
         <p class="hero__sub"><span id="typed"
@@ -97,8 +99,9 @@
             önem veririm.
         </p>
         <div class="hero__cta">
-            <a href="#projects" class="btn btn--primary"><i class="fas fa-diagram-project"></i> Çalışmalarım</a>
+            <a href="#projects" class="btn btn--primary"><i class="fas fa-project-diagram"></i> Çalışmalarım</a>
             <a href="#contact" class="btn btn--ghost"><i class="fas fa-paper-plane"></i> İletişime Geç</a>
+            <a href="#projects" class="btn btn--ghost" data-filter-jump="demo"><i class="fas fa-play"></i> Canlı demoları dene</a>
         </div>
 
         <div class="stats">
@@ -224,7 +227,7 @@
                 </div>
             </div>
             <div class="skill-group" data-reveal>
-                <h3><i class="fas fa-screwdriver-wrench"></i> Araçlar &amp; İş Akışı</h3>
+                <h3><i class="fas fa-tools"></i> Araçlar &amp; İş Akışı</h3>
                 <div class="chips">
                     <span class="chip">Git &amp; GitHub</span>
                     <span class="chip">Visual Studio</span>
@@ -241,8 +244,17 @@
         <span class="section__label" data-reveal>Seçili Çalışmalar</span>
         <h2 data-reveal>Projeler</h2>
 
-        <div class="cards">
-            <article class="card" data-reveal>
+        <div class="filters" id="projectFilters" role="group" data-reveal>
+            <button type="button" class="filter is-active" data-filter="all">Tümü</button>
+            <button type="button" class="filter" data-filter="demo">▶ Canlı demolar</button>
+            <button type="button" class="filter" data-filter="ai">Yapay Zeka &amp; Görüntü</button>
+            <button type="button" class="filter" data-filter="data">Büyük Veri</button>
+            <button type="button" class="filter" data-filter="robotics">Robotik</button>
+            <button type="button" class="filter" data-filter="apps">Uygulamalar</button>
+        </div>
+
+        <div class="cards" id="projectCards">
+            <article class="card" data-reveal data-cat="ai robotics">
                 <div class="card__icon"><i class="fas fa-user-shield"></i></div>
                 <h3>Robot Üzerinde Yüz Tanıma</h3>
                 <div class="card__meta">Bitirme Projesi · C++ / Python</div>
@@ -250,15 +262,16 @@
                 <div class="tags"><span class="tag">CNN</span><span class="tag">OpenCV</span><span class="tag">ROS</span></div>
             </article>
 
-            <article class="card" data-reveal>
+            <article class="card" data-reveal data-cat="robotics demo">
                 <div class="card__icon"><i class="fas fa-satellite-dish"></i></div>
                 <h3>Hector SLAM ile LiDAR Haritalama</h3>
                 <div class="card__meta">Robotik · 2020</div>
                 <p>Otonom bir araç için LiDAR verisi ve Hector SLAM algoritması kullanarak ROS üzerinde iç mekân haritalama ve konumlandırma hattı geliştirdim.</p>
                 <div class="tags"><span class="tag">SLAM</span><span class="tag">LiDAR</span><span class="tag">ROS</span></div>
+                <button type="button" class="card__demo" data-demo="slam"><i class="fas fa-play"></i> Canlı demo</button>
             </article>
 
-            <article class="card" data-reveal>
+            <article class="card" data-reveal data-cat="ai">
                 <div class="card__icon"><i class="fas fa-industry"></i></div>
                 <h3>Endüstriyel Görüntü İşleme</h3>
                 <div class="card__meta">Bilgisayarla Görme · Python · 2020</div>
@@ -266,7 +279,7 @@
                 <div class="tags"><span class="tag">Görüntü İşleme</span><span class="tag">Python</span></div>
             </article>
 
-            <article class="card" data-reveal>
+            <article class="card" data-reveal data-cat="apps">
                 <div class="card__icon"><i class="fas fa-bell"></i></div>
                 <h3>CBÜ Zil Sesleri</h3>
                 <div class="card__meta">Uygulama · Java · 2021</div>
@@ -274,31 +287,81 @@
                 <div class="tags"><span class="tag">Java</span></div>
             </article>
 
-            <article class="card" data-reveal>
+            <article class="card" data-reveal data-cat="data demo">
                 <div class="card__icon"><i class="fas fa-database"></i></div>
                 <h3>Big Data E-Ticaret Pipeline'ı</h3>
                 <div class="card__meta">Büyük Veri · Spark / Airflow / AWS</div>
                 <p>Brezilya'nın Olist e-ticaret veri setini (100k+ sipariş, 2016–2018) AWS S3 üzerinde Spark &amp; Airflow veri hattıyla işledim — çok pazaryerli sipariş verisi üzerinde ETL DAG'leri ve analizler kurdum.</p>
                 <div class="tags"><span class="tag">Spark</span><span class="tag">Airflow</span><span class="tag">AWS</span><span class="tag">Büyük Veri</span></div>
+                <button type="button" class="card__demo" data-demo="pipeline"><i class="fas fa-play"></i> Canlı demo</button>
                 <a class="card__link" href="https://github.com/yunuseysr/myprojectecommerce" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub'da Gör</a>
             </article>
 
-            <article class="card" data-reveal>
+            <article class="card" data-reveal data-cat="ai demo">
                 <div class="card__icon"><i class="fas fa-cookie-bite"></i></div>
                 <h3>CNN ile Bisküvi Sınıflandırma</h3>
                 <div class="card__meta">Bilgisayarla Görme · TensorFlow / OpenCV</div>
                 <p>Bisküvileri şekline (yuvarlak / dikdörtgen) ve türüne (kakaolu / sütlü) göre sınıflandıran bir evrişimli sinir ağı (CNN) geliştirdim; OpenCV hattıyla gerçek zamanlı görüntü sınıflandırma yaptım.</p>
                 <div class="tags"><span class="tag">CNN</span><span class="tag">TensorFlow</span><span class="tag">OpenCV</span></div>
+                <button type="button" class="card__demo" data-demo="biscuit"><i class="fas fa-play"></i> Canlı demo</button>
                 <a class="card__link" href="https://github.com/yunuseysr/Cins-Biscuits" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub'da Gör</a>
             </article>
 
-            <article class="card" data-reveal>
+            <article class="card" data-reveal data-cat="ai apps demo">
                 <div class="card__icon"><i class="fas fa-file-alt"></i></div>
                 <h3>TextSmith — Metin Analiz Aracı</h3>
                 <div class="card__meta">NLP · Python</div>
                 <p>Metin ve PDF dosyalarını analiz eden bir Python aracı — kelime/karakter istatistikleri hesaplar, sonuçları görselleştirir ve duygu analizi yapar.</p>
                 <div class="tags"><span class="tag">Python</span><span class="tag">NLP</span><span class="tag">Duygu Analizi</span></div>
+                <button type="button" class="card__demo" data-demo="text"><i class="fas fa-play"></i> Canlı demo</button>
                 <a class="card__link" href="https://github.com/yunuseysr/TextSmith" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub'da Gör</a>
+            </article>
+        </div>
+    </section>
+
+    <!-- Open source -->
+    <section class="section" id="opensource">
+        <span class="section__label" data-reveal>Açık Kaynak</span>
+        <h2 data-reveal>Paylaştığım Araçlar</h2>
+        <p class="section__lead" data-reveal>Kendi günlük iş akışım için geliştirdiğim ve herkes kullanabilsin diye açık kaynak olarak yayınladığım küçük araçlar.</p>
+
+        <div class="cards">
+            <article class="card" data-reveal>
+                <div class="card__icon"><i class="fas fa-th-large"></i></div>
+                <h3>Grid Tile</h3>
+                <div class="card__meta">GNOME Shell eklentisi · GPL-2.0</div>
+                <p>Ekrandaki pencereleri tek tıkla eşit bir ızgaraya dizer (6 → 3×2, 8 → 4×2) ve iş bitince eski yerlerine geri koyar. Dikey monitörlerde de çalışır.</p>
+                <div class="tags"><span class="tag">GNOME Shell</span><span class="tag">GJS</span><span class="tag">Wayland</span></div>
+                <button type="button" class="card__demo" data-demo="gridtile"><i class="fas fa-play"></i> Canlı demo</button>
+                <a class="card__link" href="https://github.com/yunuseysr/gnome-grid-tile" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub'da Gör</a>
+            </article>
+
+            <article class="card" data-reveal>
+                <div class="card__icon"><i class="fab fa-telegram-plane"></i></div>
+                <h3>Top Bar Telegram</h3>
+                <div class="card__meta">GNOME Shell eklentisi · GPL-2.0</div>
+                <p>Telegram Desktop'ı ddterm gibi açılır bir pencereye çevirir: bir kısayolla üst bardan kayarak iner, başka bir yere tıklayınca gizlenir. Flatpak, dağıtım paketleri ve Snap desteklenir.</p>
+                <div class="tags"><span class="tag">GNOME Shell</span><span class="tag">GJS</span><span class="tag">Mutter</span></div>
+                <a class="card__link" href="https://github.com/yunuseysr/gnome-topbar-telegram" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub'da Gör</a>
+            </article>
+
+            <article class="card" data-reveal>
+                <div class="card__icon"><i class="fas fa-palette"></i></div>
+                <h3>Rimtone</h3>
+                <div class="card__meta">VS Code eklentisi · MIT</div>
+                <p>Her çalışma alanına başlık, etkinlik ve durum çubuklarında kendi rengini verir; hangi pencerede olduğunu hep bilirsin. Modern UI uyumlu, WCAG kontrastlı metin, sıfır telemetri.</p>
+                <div class="tags"><span class="tag">TypeScript</span><span class="tag">VS Code API</span></div>
+                <button type="button" class="card__demo" data-demo="rimtone"><i class="fas fa-play"></i> Canlı demo</button>
+                <a class="card__link" href="https://github.com/yunuseysr/rimtone" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub'da Gör</a>
+            </article>
+
+            <article class="card" data-reveal>
+                <div class="card__icon"><i class="fas fa-chart-line"></i></div>
+                <h3>FRED Ekonomi Paneli</h3>
+                <div class="card__meta">Web uygulaması · MIT</div>
+                <p>FRED'den doğrudan beslenen, 25 temel ABD ekonomik göstergesini (enflasyon, istihdam, faiz, büyüme, konut) gösteren, kendi sunucunda çalıştırabileceğin bir panel. API anahtarı ve veritabanı gerekmez.</p>
+                <div class="tags"><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">Recharts</span></div>
+                <a class="card__link" href="https://github.com/yunuseysr/fred-data" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub'da Gör</a>
             </article>
         </div>
     </section>
@@ -344,7 +407,7 @@
         <ul class="ach-list">
             <li data-reveal><i class="fas fa-trophy"></i><div><strong>Bölüm Birinciliği — Bilgisayar Mühendisliği</strong><br/><span>Manisa Celal Bayar Üniversitesi'nde bölüm birincisi olarak mezun oldum; birincilik ödülünü bölüm başkanından aldım.</span></div></li>
             <li data-reveal><i class="fas fa-hand-holding-heart"></i><div><strong>Başkan Yardımcısı — Genç Kızılay, Manisa</strong><br/><span>Gençlik kolu organizasyon faaliyetlerini yönettim (2020–2021).</span></div></li>
-            <li data-reveal><i class="fas fa-tower-broadcast"></i><div><strong>Haberleşme Sorumlusu — Kızılay Afet Ekibi, Manisa</strong><br/><span>Manisa afet müdahale ekibinin haberleşmesini koordine ettim (2020–2021).</span></div></li>
+            <li data-reveal><i class="fas fa-broadcast-tower"></i><div><strong>Haberleşme Sorumlusu — Kızılay Afet Ekibi, Manisa</strong><br/><span>Manisa afet müdahale ekibinin haberleşmesini koordine ettim (2020–2021).</span></div></li>
         </ul>
     </section>
 
@@ -365,5 +428,6 @@
 </main>
 
 <script src="../js/scripts.js"></script>
+<script src="../js/lab.js" defer></script>
 </body>
 </html>
