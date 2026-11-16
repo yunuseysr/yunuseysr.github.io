@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="Open, profile, query and convert Parquet, CSV and JSON files entirely in the browser with DuckDB-WASM — no server, no upload."/>
+    <meta name="theme-color" content="#0a0e1a"/>
+    <title data-title-en="Parquet in the browser with DuckDB-WASM — Notes" data-title-tr="Tarayıcıda Parquet: DuckDB-WASM — Notlar">Parquet in the browser with DuckDB-WASM — Notes</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg"/>
+    <link rel="canonical" href="https://yunuseysr.github.io/notes/duckdb-wasm-parquet.html"/>
+    <meta property="og:title" content="Parquet in the browser with DuckDB-WASM"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:image" content="https://yunuseysr.github.io/assets/img/og-card.jpg"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <script src="../js/icons.js" defer></script>
+    <link href="../css/styles.css" rel="stylesheet"/>
+    <link href="../tools/tools.css" rel="stylesheet"/>
+    <link href="notes.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="tbar">
+    <a class="tbar__home" href="./" data-keep-lang><i class="fas fa-arrow-left"></i> <span data-l="en">Notes</span><span data-l="tr">Notlar</span></a>
+    <div class="tbar__right"><div class="lang-toggle"><a href="?lang=en" data-lang="en">EN</a><a href="?lang=tr" data-lang="tr">TR</a></div></div>
+</header>
+
+<main class="nmain">
+<article class="post" data-l="en">
+    <span class="nmeta">Data engineering · DuckDB · November 2026</span>
+    <h1>Parquet in the browser with DuckDB-WASM</h1>
+    <p class="lede">“What is in this Parquet file?” usually means opening a notebook or a Spark shell. A static web page can
+        answer it in two seconds — schema, row groups, a column profile, ad-hoc SQL, even CSV → Parquet — without the file
+        ever leaving the machine.</p>
+
+    <h2>Why DuckDB</h2>
+    <p>DuckDB is an in-process analytical database with first-class Parquet, CSV and JSON readers. Its WebAssembly build
+        runs the same engine in a Web Worker. For a static site that is ideal: no backend to run, no upload, and the same
+        SQL you would write on a laptop.</p>
+    <p>The cost is size: the engine is about 7 MB. The <a href="../tools/#data">data explorer</a> loads it only when you
+        open that tool, so nothing else on the site gets heavier.</p>
+
+    <h2>Starting the engine</h2>
+<pre><code>const duckdb = await import('https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm');
+const bundle = await duckdb.selectBundle(duckdb.getJsDelivrBundles());
+
+// A worker can't be loaded cross-origin directly, so wrap it in a same-origin blob
+const workerUrl = URL.createObjectURL(
+    new Blob([`importScripts("${bundle.mainWorker}");`], {type: 'text/javascript'}));
+const db = new duckdb.AsyncDuckDB(new duckdb.VoidLogger(), new Worker(workerUrl));
+await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+const conn = await db.connect();</code></pre>
+
+    <h2>Reading the user's file without copying it</h2>
+    <p><code>registerFileHandle</code> lets DuckDB read a dropped <code>File</code> directly. For Parquet it only fetches
+        the byte ranges it needs — the footer, then the row groups a query touches — so even large files open quickly.</p>
+<pre><code>await db.registerFileHandle(name, file, duckdb.DuckDBDataProtocol.BROWSER_FILEREADER, true);
+await conn.query(`CREATE VIEW data AS SELECT * FROM read_parquet('${name}')`);</code></pre>
+    <p>After that everything is plain SQL:</p>
+<pre><code>-- column profile: min, max, approx. distinct, average, quartiles, null %
+SUMMARIZE data;
+
+-- Parquet layout: row groups and compression
+SELECT count(DISTINCT row_group_id), string_agg(DISTINCT compression, ', ')
+FROM parquet_metadata('events.parquet');
+
+-- convert: write a new file inside the WASM file system, then hand it to the browser
+COPY (SELECT * FROM data) TO 'out.parquet' (FORMAT PARQUET, COMPRESSION ZSTD);</code></pre>
+<pre><code>const bytes = await db.copyFileToBuffer('out.parquet');   // Uint8Array → Blob → download</code></pre>
+    <p>In the tool, a 108 KB CSV of 2 000 orders becomes a 23 KB Parquet file this way.</p>
+
+    <h2>Gotchas</h2>
+    <ul>
+        <li><strong>BigInt.</strong> <code>count(*)</code> and BIGINT columns come back as JavaScript <code>BigInt</code>;
+            <code>JSON.stringify</code> throws on them unless you convert first.</li>
+        <li><strong>Timestamps</strong> arrive from Arrow as epoch milliseconds — format them by the column type, not by
+            guessing from the value.</li>
+        <li><strong>Testing.</strong> In my tests, headless Chrome's “virtual time” mode never finished instantiating the engine;
+            driving the page in real time (over the DevTools protocol) worked.</li>
+    </ul>
+
+    <div class="try"><i class="fas fa-database"></i> <span>Try it with your own file, or with the built-in sample:
+        <a href="../tools/#data" data-keep-lang>Parquet / CSV / JSON explorer</a></span></div>
+</article>
+
+<article class="post" data-l="tr" hidden>
+    <span class="nmeta">Veri mühendisliği · DuckDB · Kasım 2026</span>
+    <h1>Tarayıcıda Parquet: DuckDB-WASM</h1>
+    <p class="lede">“Bu Parquet dosyasında ne var?” sorusu genelde bir notebook ya da Spark shell açmak demek. Statik bir web
+        sayfası bunu iki saniyede cevaplayabilir: şema, satır grupları, sütun profili, anlık SQL, hatta CSV → Parquet. Üstelik
+        dosya bilgisayardan hiç çıkmadan.</p>
+
+    <h2>Neden DuckDB</h2>
+    <p>DuckDB, Parquet, CSV ve JSON okuyucuları birinci sınıf olan, uygulamanın içinde çalışan analitik bir veritabanı.
+        WebAssembly sürümü aynı motoru bir Web Worker içinde çalıştırıyor. Statik bir site için ideal: çalıştırılacak sunucu
+        yok, yükleme yok ve dizüstünde yazacağın SQL'in aynısı.</p>
+    <p>Bedeli boyut: motor yaklaşık 7 MB. <a href="../tools/#data" data-keep-lang>Veri gezgini</a> onu yalnızca o aracı açtığında
+        yüklüyor; sitenin geri kalanı ağırlaşmıyor.</p>
+
+    <h2>Motoru başlatmak</h2>
+<pre><code>const duckdb = await import('https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm');
+const bundle = await duckdb.selectBundle(duckdb.getJsDelivrBundles());
+
+// Worker başka bir alan adından doğrudan yüklenemez; aynı kaynaklı bir blob ile sar
+const workerUrl = URL.createObjectURL(
+    new Blob([`importScripts("${bundle.mainWorker}");`], {type: 'text/javascript'}));
+const db = new duckdb.AsyncDuckDB(new duckdb.VoidLogger(), new Worker(workerUrl));
+await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+const conn = await db.connect();</code></pre>
+
+    <h2>Kullanıcının dosyasını kopyalamadan okumak</h2>
+    <p><code>registerFileHandle</code>, bırakılan <code>File</code> nesnesini DuckDB'nin doğrudan okumasını sağlıyor. Parquet'te
+        yalnızca ihtiyaç duyduğu bayt aralıklarını alıyor (önce dosyanın sonundaki metadata, sonra sorgunun dokunduğu satır
+        grupları); büyük dosyalar bile hızlı açılıyor.</p>
+<pre><code>await db.registerFileHandle(name, file, duckdb.DuckDBDataProtocol.BROWSER_FILEREADER, true);
+await conn.query(`CREATE VIEW data AS SELECT * FROM read_parquet('${name}')`);</code></pre>
+    <p>Gerisi düz SQL:</p>
+<pre><code>-- sütun profili: min, max, yaklaşık farklı değer, ortalama, çeyrekler, null %
+SUMMARIZE data;
+
+-- Parquet yerleşimi: satır grupları ve sıkıştırma
+SELECT count(DISTINCT row_group_id), string_agg(DISTINCT compression, ', ')
+FROM parquet_metadata('events.parquet');
+
+-- dönüştürme: WASM dosya sistemine yeni bir dosya yaz, sonra tarayıcıya ver
+COPY (SELECT * FROM data) TO 'out.parquet' (FORMAT PARQUET, COMPRESSION ZSTD);</code></pre>
+<pre><code>const bytes = await db.copyFileToBuffer('out.parquet');   // Uint8Array → Blob → indir</code></pre>
+    <p>Araçta 2 000 siparişlik 108 KB'lık bir CSV bu yolla 23 KB'lık bir Parquet dosyasına dönüşüyor.</p>
+
+    <h2>Dikkat edilecekler</h2>
+    <ul>
+        <li><strong>BigInt.</strong> <code>count(*)</code> ve BIGINT sütunlar JavaScript <code>BigInt</code> olarak geliyor;
+            önce dönüştürmezsen <code>JSON.stringify</code> hata veriyor.</li>
+        <li><strong>Zaman damgaları</strong> Arrow'dan epoch milisaniye olarak geliyor; değere bakıp tahmin etmek yerine sütun
+            tipine göre biçimlendir.</li>
+        <li><strong>Test.</strong> Benim testlerimde headless Chrome'un “sanal zaman” modunda motor başlatma hiç bitmedi; sayfayı
+            gerçek zamanlı sürmek (DevTools protokolü üzerinden) işe yaradı.</li>
+    </ul>
+
+    <div class="try"><i class="fas fa-database"></i> <span>Kendi dosyanla ya da hazır örnekle dene:
+        <a href="../tools/#data" data-keep-lang>Parquet / CSV / JSON gezgini</a></span></div>
+</article>
+</main>
+<footer class="tfoot">Yunus Emre Yaşar · <a href="../">yunuseysr.github.io</a></footer>
+<script src="notes.js"></script>
+</body>
+</html>

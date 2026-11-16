@@ -241,4 +241,130 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.querySelectorAll('[data-filter-jump]').forEach(a =>
         a.addEventListener('click', () => applyFilter(a.dataset.filterJump)));
+
+    const TR = (document.documentElement.lang || '').toLowerCase().startsWith('tr');
+    const tt = (en, tr) => (TR ? tr : en);
+    const norm = s => (s || '').toLocaleLowerCase(TR ? 'tr-TR' : 'en-US').replace(/[^\p{L}\p{N}+#]+/gu, ' ').trim();
+
+    /* --------------------------------------------- "I need…" (services) */
+    const needs = document.getElementById('needFilters');
+    const services = [...document.querySelectorAll('#serviceCards .service')];
+    needs?.querySelectorAll('[data-need]').forEach(b => b.addEventListener('click', () => {
+        const key = b.dataset.need;
+        needs.querySelectorAll('[data-need]').forEach(x => x.classList.toggle('is-active', x === b));
+        services.forEach(c => {
+            c.classList.add('in');
+            c.classList.toggle('is-dim', key !== 'all' && c.dataset.service !== key);
+            c.classList.toggle('is-picked', c.dataset.service === key);
+        });
+        const picked = services.find(c => c.dataset.service === key);
+        if (picked && window.matchMedia('(max-width: 900px)').matches) picked.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }));
+
+    /* ------------------------------------- skills → the projects using them */
+    const cardText = c => ` ${norm([...c.querySelectorAll('h3, p, .card__meta, .tag')].map(e => e.textContent).join(' '))} `;
+    const hasWord = (text, w) => text.includes(` ${w} `) || text.includes(` ${w}`) && /\p{L}/u.test(w.slice(-1)) && new RegExp(` ${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\p{L}{0,4})? `, 'u').test(text);
+    const SYN = { 'computer vision': ['opencv', 'cnn', 'image'], 'image processing': ['image processing', 'opencv', 'görüntü'],
+        'görüntü işleme': ['görüntü', 'opencv'], 'bilgisayarla görme': ['opencv', 'cnn', 'görüntü'],
+        'big data': ['big data', 'spark', 'büyük veri'], 'büyük veri': ['büyük veri', 'spark', 'big data'],
+        'data pipelines': ['data pipeline', 'airflow', 'etl'], 'veri hatları': ['veri hattı', 'airflow', 'etl'],
+        'deep learning': ['cnn', 'tensorflow'], 'derin öğrenme': ['cnn', 'tensorflow'],
+        'neural networks dnn cnn': ['cnn'], 'sinir ağları dnn cnn': ['cnn'], 'slam lidar': ['slam', 'lidar'],
+        'machine learning': ['cnn', 'tensorflow', 'sentiment', 'nlp'], 'makine öğrenmesi': ['cnn', 'tensorflow', 'duygu', 'nlp'] };
+    const filterBar = document.getElementById('projectFilters');
+    let skillPill = null;
+    const showSkill = label => {
+        const key = norm(label);
+        const words = SYN[key] || [key];
+        const hits = cards.filter(c => words.some(w => hasWord(cardText(c), w)));
+        if (!hits.length) return false;
+        filters?.querySelectorAll('.filter').forEach(b => b.classList.remove('is-active'));
+        cards.forEach(c => { c.classList.toggle('is-hidden', !hits.includes(c)); c.classList.add('in'); });
+        skillPill?.remove();
+        skillPill = document.createElement('button');
+        skillPill.type = 'button';
+        skillPill.className = 'filter is-active skill-pill';
+        skillPill.innerHTML = `${label} <span class="filter__n">${hits.length}</span> ✕`;
+        skillPill.addEventListener('click', () => { skillPill.remove(); skillPill = null; applyFilter('all'); });
+        filterBar?.appendChild(skillPill);
+        document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+        return true;
+    };
+    document.querySelectorAll('.skill-group .chip').forEach(chip => {
+        const has = cards.some(c => (SYN[norm(chip.textContent)] || [norm(chip.textContent)]).some(w => hasWord(cardText(c), w)));
+        if (!has) return;
+        chip.classList.add('chip--link');
+        chip.setAttribute('role', 'button');
+        chip.setAttribute('tabindex', '0');
+        chip.title = tt('Show projects using this', 'Bunu kullanan projeleri göster');
+        const go = () => showSkill(chip.textContent.trim());
+        chip.addEventListener('click', go);
+        chip.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+    });
+    filters?.querySelectorAll('.filter').forEach(b => b.addEventListener('click', () => { skillPill?.remove(); skillPill = null; }));
+
+    /* ------------------------------------------------ Ctrl+K command palette */
+    const items = [];
+    document.querySelectorAll('#nav a').forEach(a => items.push({
+        label: a.textContent.trim(), hint: tt('Section', 'Bölüm'), icon: '§', run: () => { location.hash = a.getAttribute('href'); }
+    }));
+    document.querySelectorAll('[data-demo]').forEach(b => {
+        const card = b.closest('.card');
+        const title = card?.querySelector('h3')?.textContent.trim();
+        if (!title || items.some(i => i.key === b.dataset.demo)) return;
+        items.push({ key: b.dataset.demo, label: title, hint: tt('Live demo', 'Canlı demo'), icon: '▶', run: () => b.click() });
+    });
+    document.querySelectorAll('[data-repo]').forEach(card => items.push({
+        label: card.querySelector('h3')?.textContent.trim(), hint: 'GitHub', icon: '⎇',
+        run: () => window.open(`https://github.com/yunuseysr/${card.dataset.repo}`, '_blank', 'noopener')
+    }));
+    const root = TR ? '../' : '';
+    items.push(
+        { label: tt('Developer tools', 'Geliştirici araçları'), hint: tt('Page', 'Sayfa'), icon: '🛠', run: () => { location.href = `${root}tools/${TR ? '?lang=tr' : ''}`; } },
+        { label: tt('Notes', 'Notlar'), hint: tt('Page', 'Sayfa'), icon: '✎', run: () => { location.href = `${root}notes/${TR ? '?lang=tr' : ''}`; } },
+        { label: tt('Download CV (PDF)', 'CV indir (PDF)'), hint: 'PDF', icon: '⬇',
+          run: () => { location.href = `${root}assets/cv/Yunus-Emre-Yasar-CV${TR ? '-TR' : ''}.pdf`; } },
+        { label: tt('Copy e-mail address', 'E-posta adresini kopyala'), hint: tt('Contact', 'İletişim'), icon: '✉',
+          run: () => navigator.clipboard?.writeText('yunuseysr@gmail.com') },
+        { label: TR ? 'English' : 'Türkçe', hint: tt('Language', 'Dil'), icon: '🌐', run: () => { location.href = TR ? '../' : 'tr/'; } }
+    );
+
+    let pal = null, sel = 0, shown = [];
+    const openPalette = () => {
+        if (pal) return;
+        pal = document.createElement('div');
+        pal.className = 'kpal';
+        pal.innerHTML = `<div class="kpal__box" role="dialog" aria-modal="true" aria-label="${tt('Command palette', 'Komut paleti')}">
+            <input class="kpal__in" type="text" placeholder="${tt('Jump to a section, demo or tool…', 'Bölüm, demo ya da araca git…')}" aria-label="${tt('Search', 'Ara')}">
+            <ul class="kpal__list" role="listbox"></ul>
+            <div class="kpal__foot"><kbd>↑</kbd><kbd>↓</kbd> ${tt('move', 'gez')} · <kbd>Enter</kbd> ${tt('open', 'aç')} · <kbd>Esc</kbd> ${tt('close', 'kapat')}</div></div>`;
+        document.body.appendChild(pal);
+        const input = pal.querySelector('input'), list = pal.querySelector('ul');
+        const render = () => {
+            const q = norm(input.value);
+            shown = items.filter(i => i.label && (!q || norm(`${i.label} ${i.hint}`).includes(q))).slice(0, 12);
+            sel = Math.min(sel, Math.max(0, shown.length - 1));
+            list.innerHTML = shown.map((i, n) => `<li role="option" class="${n === sel ? 'is-sel' : ''}" data-n="${n}">
+                <span class="kpal__ic">${i.icon}</span><span class="kpal__lb">${i.label}</span><span class="kpal__hint">${i.hint}</span></li>`).join('')
+                || `<li class="kpal__none">${tt('Nothing found', 'Sonuç yok')}</li>`;
+        };
+        const pick = n => { const it = shown[n]; closePalette(); it?.run(); };
+        input.addEventListener('input', () => { sel = 0; render(); });
+        input.addEventListener('keydown', e => {
+            if (e.key === 'ArrowDown') { e.preventDefault(); sel = Math.min(sel + 1, shown.length - 1); render(); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); sel = Math.max(sel - 1, 0); render(); }
+            else if (e.key === 'Enter') { e.preventDefault(); pick(sel); }
+            else if (e.key === 'Escape') closePalette();
+        });
+        list.addEventListener('click', e => { const li = e.target.closest('[data-n]'); if (li) pick(+li.dataset.n); });
+        pal.addEventListener('click', e => { if (e.target === pal) closePalette(); });
+        render();
+        requestAnimationFrame(() => pal?.classList.add('show'));
+        input.focus();
+    };
+    const closePalette = () => { pal?.remove(); pal = null; };
+    document.addEventListener('keydown', e => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); pal ? closePalette() : openPalette(); }
+    });
+    document.querySelectorAll('[data-palette]').forEach(b => b.addEventListener('click', openPalette));
 });

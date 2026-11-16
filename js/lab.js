@@ -1301,6 +1301,138 @@ df.write.mode("overwrite").parquet(
     }
 
     /* =================================================================
+       7) Face detection + age / gender — face-api.js (TensorFlow.js), on device
+       ================================================================= */
+    const FACEAPI = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.13/dist/face-api.esm.js';
+    const FACE_MODELS = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.13/model/';
+    let faceapi = null;
+
+    async function loadFaceApi(status) {
+        if (faceapi) return faceapi;
+        status(t('Loading the models (about 2 MB, only once)…', 'Modeller yükleniyor (yaklaşık 2 MB, bir kez)…'));
+        const m = await import(FACEAPI);
+        const api = m.nets ? m : m.default;
+        await api.nets.tinyFaceDetector.loadFromUri(FACE_MODELS);
+        await api.nets.ageGenderNet.loadFromUri(FACE_MODELS);
+        faceapi = api;
+        return api;
+    }
+
+    function mountFace(root) {
+        root.innerHTML = `
+            <div class="face">
+                <div class="face__stage">
+                    <video playsinline muted hidden></video>
+                    <img alt="" hidden>
+                    <canvas></canvas>
+                    <p class="face__empty">${t('Start the camera or open a photo.', 'Kamerayı başlat ya da bir fotoğraf aç.')}</p>
+                </div>
+                <div class="face__side">
+                    <div class="lab__row" style="margin-top:0">
+                        <button type="button" class="lab-btn lab-btn--primary" data-act="cam"><i class="fas fa-camera"></i> ${t('Start camera', 'Kamerayı başlat')}</button>
+                        <label class="lab-btn"><i class="fas fa-upload"></i> ${t('Open photo', 'Fotoğraf aç')}<input type="file" accept="image/*" hidden></label>
+                    </div>
+                    <p class="bis__msg" data-s="status"></p>
+                    <span class="lab__label">${t('Faces', 'Yüzler')}</span>
+                    <ul class="face__list" data-s="list"><li class="lab__muted">–</li></ul>
+                    <p class="lab__hint">${t('Age and gender are rough model estimates, shown only to illustrate the graduation project.',
+                        'Yaş ve cinsiyet kaba model tahminleridir; yalnızca bitirme projesini göstermek için gösterilir.')}</p>
+                </div>
+            </div>`;
+
+        const video = root.querySelector('video'), img = root.querySelector('img'), canvas = root.querySelector('canvas');
+        const stage = root.querySelector('.face__stage'), empty = root.querySelector('.face__empty');
+        const statusEl = root.querySelector('[data-s="status"]'), list = root.querySelector('[data-s="list"]');
+        const camBtn = root.querySelector('[data-act="cam"]');
+        let stream = null, timer = 0, alive = true;
+        const status = (s, warn) => { statusEl.textContent = s; statusEl.classList.toggle('is-warn', !!warn); };
+
+        function draw(results, source, w, h) {
+            const r = stage.getBoundingClientRect();
+            const scale = Math.min(r.width / w, r.height / h);
+            const dw = w * scale, dh = h * scale, ox = (r.width - dw) / 2, oy = (r.height - dh) / 2;
+            const ctx = fitCanvas(canvas, r.width, r.height);
+            ctx.clearRect(0, 0, r.width, r.height);
+            ctx.lineWidth = 2;
+            ctx.font = '600 13px Inter, sans-serif';
+            results.forEach((f, i) => {
+                const b = f.detection.box;
+                const bw = b.width * scale, bh = b.height * scale, y = oy + b.y * scale;
+                let x = ox + b.x * scale;
+                if (source === video) x = r.width - x - bw; // the video is shown mirrored
+                ctx.strokeStyle = '#22d3ee';
+                ctx.strokeRect(x, y, bw, bh);
+                const label = `#${i + 1} · ${Math.round(f.age)}`;
+                const tw = ctx.measureText(label).width + 12;
+                ctx.fillStyle = '#22d3ee';
+                ctx.fillRect(x, y - 22, tw, 20);
+                ctx.fillStyle = '#0a0e1a';
+                ctx.fillText(label, x + 6, y - 7);
+            });
+            list.innerHTML = results.length ? results.map((f, i) => `<li><b>#${i + 1}</b> ${t('age', 'yaş')} ≈ ${Math.round(f.age)} · ${
+                f.gender === 'male' ? t('man', 'erkek') : t('woman', 'kadın')} ${Math.round(f.genderProbability * 100)}% ·
+                <span class="lab__muted">${t('confidence', 'güven')} ${Math.round(f.detection.score * 100)}%</span></li>`).join('')
+                : `<li class="lab__muted">${t('No face found.', 'Yüz bulunamadı.')}</li>`;
+        }
+
+        async function detect(source, w, h) {
+            const api = await loadFaceApi(status);
+            const results = await api.detectAllFaces(source, new api.TinyFaceDetectorOptions({ inputSize: 416, scoreThreshold: 0.45 })).withAgeAndGender();
+            if (alive) draw(results, source, w, h);
+            return results;
+        }
+
+        function stopCamera() {
+            clearTimeout(timer);
+            stream?.getTracks().forEach(tr => tr.stop());
+            stream = null;
+            video.hidden = true;
+            camBtn.innerHTML = `<i class="fas fa-camera"></i> ${t('Start camera', 'Kamerayı başlat')}`;
+        }
+
+        camBtn.addEventListener('click', async () => {
+            if (stream) { stopCamera(); return; }
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480, facingMode: 'user' }, audio: false });
+                video.srcObject = stream;
+                await video.play();
+                img.hidden = true; video.hidden = false; empty.hidden = true;
+                camBtn.innerHTML = `<i class="fas fa-times"></i> ${t('Stop camera', 'Kamerayı durdur')}`;
+                await loadFaceApi(status);
+                status(t('Running on your device — no frame leaves this page.', 'Cihazında çalışıyor — hiçbir kare bu sayfadan çıkmıyor.'));
+                const loop = async () => {
+                    if (!stream || !alive) return;
+                    try { await detect(video, video.videoWidth, video.videoHeight); } catch (e) { /* frame not ready */ }
+                    timer = setTimeout(loop, reduceMotion ? 600 : 150);
+                };
+                loop();
+            } catch (e) {
+                stopCamera();
+                status(t('Camera not available: ', 'Kamera kullanılamıyor: ') + (e.message || e.name), true);
+            }
+        });
+
+        root.querySelector('input[type=file]').addEventListener('change', async e => {
+            const file = e.target.files[0];
+            e.target.value = '';
+            if (!file) return;
+            stopCamera();
+            const url = URL.createObjectURL(file);
+            img.onload = async () => {
+                img.hidden = false; empty.hidden = true;
+                try {
+                    const res = await detect(img, img.naturalWidth, img.naturalHeight);
+                    status(t(`${res.length} face(s) found — the photo stays in your browser.`, `${res.length} yüz bulundu — fotoğraf tarayıcında kalıyor.`));
+                } catch (err) { status(t('Detection failed: ', 'Tespit başarısız: ') + (err.message || err), true); }
+                URL.revokeObjectURL(url);
+            };
+            img.src = url;
+        });
+
+        return () => { alive = false; stopCamera(); };
+    }
+
+    /* =================================================================
        Registry
        ================================================================= */
     const DEMOS = {
@@ -1344,6 +1476,14 @@ df.write.mode("overwrite").parquet(
                 'Eklentideki (impl.js) ızgara seçme kuralının aynısını kullanıyor; masaüstü ve pencereler temsili.'),
             mount: mountGridTile
         },
+        face: {
+            title: t('Face Detection + Age & Gender', 'Yüz Tespiti + Yaş & Cinsiyet'),
+            sub: t('Point your camera or open a photo: faces are found and age and gender are estimated, live.',
+                'Kamerayı aç ya da bir fotoğraf seç: yüzler bulunur, yaş ve cinsiyet canlı olarak tahmin edilir.'),
+            note: t('Runs face-api.js (TensorFlow.js) entirely in your browser — camera frames and photos are never uploaded. The original graduation project ran face recognition and age/gender models on a ROS robot.',
+                'face-api.js (TensorFlow.js) tamamen tarayıcında çalışır; kamera görüntüleri ve fotoğraflar hiçbir yere yüklenmez. Asıl bitirme projesi yüz tanıma ve yaş/cinsiyet modellerini bir ROS robotu üzerinde çalıştırıyordu.'),
+            mount: mountFace
+        },
         rimtone: {
             title: 'Rimtone',
             sub: t('Give every VS Code workspace its own colour on the title, activity and status bars.',
@@ -1353,4 +1493,8 @@ df.write.mode("overwrite").parquet(
             mount: mountRimtone
         }
     };
+
+    // Deep link: ?demo=<id> opens that demo (used by the notes and the tools page)
+    const wanted = new URLSearchParams(location.search).get('demo');
+    if (wanted && DEMOS[wanted]) openLab(wanted, document.querySelector(`[data-demo="${wanted}"]`));
 })();

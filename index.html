@@ -16,14 +16,33 @@
     <meta property="og:title" content="Yunus Emre Yaşar — Big Data &amp; AI Engineer"/>
     <meta property="og:description" content="Senior Software Specialist at Vestel. AI, machine learning, computer vision and big-data systems."/>
     <meta property="og:type" content="website"/>
-    <meta property="og:image" content="assets/img/avatar.jpg"/>
+    <meta property="og:url" content="https://yunuseysr.github.io/"/>
+    <meta property="og:site_name" content="Yunus Emre Yaşar"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:locale:alternate" content="tr_TR"/>
+    <meta property="og:image" content="https://yunuseysr.github.io/assets/img/og-card.jpg"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta property="og:image:alt" content="Yunus Emre Yaşar — Big Data & AI Engineer"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:creator" content="@yunuseysr"/>
+    <meta name="twitter:image" content="https://yunuseysr.github.io/assets/img/og-card.jpg"/>
+
+    <!-- Language versions -->
+    <link rel="canonical" href="https://yunuseysr.github.io/"/>
+    <link rel="alternate" hreflang="en" href="https://yunuseysr.github.io/"/>
+    <link rel="alternate" hreflang="tr" href="https://yunuseysr.github.io/tr/"/>
+    <link rel="alternate" hreflang="x-default" href="https://yunuseysr.github.io/"/>
+
+    <!-- Structured data -->
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Yunus Emre Yaşar", "url": "https://yunuseysr.github.io/", "image": "https://yunuseysr.github.io/assets/img/avatar.jpg", "alumniOf": {"@type": "CollegeOrUniversity", "name": "Manisa Celal Bayar University"}, "knowsAbout": ["Big Data", "Machine Learning", "Computer Vision", "Data Engineering", "Apache Spark", "Apache Airflow", "Python", "ROS", "GNOME Shell extensions"], "sameAs": ["https://www.linkedin.com/in/yunusemreyasar/", "https://github.com/yunuseysr", "https://www.kaggle.com/yunuseysr", "https://stackoverflow.com/users/10436808/yunus-emre-yaşar", "https://twitter.com/yunuseysr", "https://www.instagram.com/yunusemreyasar"], "jobTitle": "Big Data & AI Engineer"}</script>
 
     <!-- Fonts & icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
           rel="stylesheet"/>
-    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <script src="js/icons.js" defer></script>
 
     <link href="css/styles.css" rel="stylesheet"/>
 </head>
@@ -58,6 +77,7 @@
             <li><a href="#opensource"><i class="fas fa-code-branch"></i> Open Source</a></li>
             <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
             <li><a href="#awards"><i class="fas fa-award"></i> Awards</a></li>
+            <li><a href="#services"><i class="fas fa-hands-helping"></i> Services</a></li>
             <li><a href="#contact"><i class="fas fa-paper-plane"></i> Contact</a></li>
         </ul>
     </nav>
@@ -74,6 +94,9 @@
             <a href="https://www.instagram.com/yunusemreyasar" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="mailto:yunuseysr@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
         </div>
+        <a class="side-tools" href="tools/"><i class="fas fa-tools"></i> Developer tools <span>NEW</span></a>
+        <a class="side-notes" href="notes/"><i class="fas fa-file-alt"></i> Notes</a>
+        <button type="button" class="kbd-hint" data-palette><i class="fas fa-search"></i> Search <kbd>Ctrl K</kbd></button>
         <div class="lang-toggle">
             <a href="index.html" class="active">EN</a>
             <a href="tr/index.html">TR</a>
@@ -83,6 +106,17 @@
 
 <!-- ================================================================ Main -->
 <main class="main">
+    <!-- Only visible when printing / in the PDF CV -->
+    <header class="print-head" aria-hidden="true">
+        <div><h1>Yunus Emre Yaşar</h1><p>Big Data &amp; AI Engineer · Senior Software Specialist</p></div>
+        <ul>
+            <li>yunuseysr@gmail.com</li>
+            <li>yunuseysr.github.io</li>
+            <li>linkedin.com/in/yunusemreyasar</li>
+            <li>github.com/yunuseysr</li>
+        </ul>
+    </header>
+
 
     <!-- Hero / About -->
     <section class="hero" id="about">
@@ -101,6 +135,7 @@
         <div class="hero__cta">
             <a href="#projects" class="btn btn--primary"><i class="fas fa-project-diagram"></i> View My Work</a>
             <a href="#contact" class="btn btn--ghost"><i class="fas fa-paper-plane"></i> Get in Touch</a>
+            <a href="assets/cv/Yunus-Emre-Yasar-CV.pdf" class="btn btn--ghost" download><i class="fas fa-download"></i> Download CV (PDF)</a>
             <a href="#projects" class="btn btn--ghost" data-filter-jump="demo"><i class="fas fa-play"></i> Try the live demos</a>
         </div>
 
@@ -253,12 +288,13 @@
         </div>
 
         <div class="cards" id="projectCards">
-            <article class="card" data-reveal data-cat="ai robotics">
+            <article class="card" data-reveal data-cat="ai robotics demo">
                 <div class="card__icon"><i class="fas fa-user-shield"></i></div>
                 <h3>Face Recognition on Robot</h3>
                 <div class="card__meta">Graduation Project · C++ / Python</div>
                 <p>Integrated a face recognition model with an age &amp; gender estimation model into a single mobile robot, running real-time inference on a vision pipeline.</p>
                 <div class="tags"><span class="tag">CNN</span><span class="tag">OpenCV</span><span class="tag">ROS</span></div>
+                <button type="button" class="card__demo" data-demo="face"><i class="fas fa-play"></i> Live demo</button>
             </article>
 
             <article class="card" data-reveal data-cat="robotics demo">
@@ -325,7 +361,7 @@
         <p class="section__lead" data-reveal>Small tools I built for my own daily workflow and released so anyone can use them — free and open source.</p>
 
         <div class="cards">
-            <article class="card" data-reveal>
+            <article class="card" data-reveal data-repo="gnome-grid-tile">
                 <div class="card__icon"><i class="fas fa-th-large"></i></div>
                 <h3>Grid Tile</h3>
                 <div class="card__meta">GNOME Shell extension · GPL-2.0</div>
@@ -335,7 +371,7 @@
                 <a class="card__link" href="https://github.com/yunuseysr/gnome-grid-tile" target="_blank" rel="noopener"><i class="fab fa-github"></i> View on GitHub</a>
             </article>
 
-            <article class="card" data-reveal>
+            <article class="card" data-reveal data-repo="gnome-topbar-telegram">
                 <div class="card__icon"><i class="fab fa-telegram-plane"></i></div>
                 <h3>Top Bar Telegram</h3>
                 <div class="card__meta">GNOME Shell extension · GPL-2.0</div>
@@ -344,7 +380,7 @@
                 <a class="card__link" href="https://github.com/yunuseysr/gnome-topbar-telegram" target="_blank" rel="noopener"><i class="fab fa-github"></i> View on GitHub</a>
             </article>
 
-            <article class="card" data-reveal>
+            <article class="card" data-reveal data-repo="rimtone">
                 <div class="card__icon"><i class="fas fa-palette"></i></div>
                 <h3>Rimtone</h3>
                 <div class="card__meta">VS Code extension · MIT</div>
@@ -354,7 +390,7 @@
                 <a class="card__link" href="https://github.com/yunuseysr/rimtone" target="_blank" rel="noopener"><i class="fab fa-github"></i> View on GitHub</a>
             </article>
 
-            <article class="card" data-reveal>
+            <article class="card" data-reveal data-repo="fred-data">
                 <div class="card__icon"><i class="fas fa-chart-line"></i></div>
                 <h3>FRED Economic Dashboard</h3>
                 <div class="card__meta">Web app · MIT</div>
@@ -363,6 +399,10 @@
                 <a class="card__link" href="https://github.com/yunuseysr/fred-data" target="_blank" rel="noopener"><i class="fab fa-github"></i> View on GitHub</a>
             </article>
         </div>
+
+        <h3 class="subhead" data-reveal>More on GitHub</h3>
+        <div class="repo-grid" id="repoList" aria-busy="true" aria-live="polite"></div>
+        <a class="card__link repo-all" href="https://github.com/yunuseysr?tab=repositories" target="_blank" rel="noopener"><i class="fab fa-github"></i> All repositories on GitHub →</a>
     </section>
 
     <!-- Education -->
@@ -410,6 +450,104 @@
         </ul>
     </section>
 
+    <!-- Services -->
+    <section class="section" id="services">
+        <span class="section__label" data-reveal>Services</span>
+        <h2 data-reveal>How I Can Help</h2>
+        <p class="section__lead" data-reveal>Have a problem in one of these areas? Each card links to something on this page you can try right now.</p>
+
+        <div class="filters needs" id="needFilters" role="group" aria-label="I need…" data-reveal>
+            <span class="needs__label">I need…</span>
+            <button type="button" class="filter need is-active" data-need="all">All</button>
+            <button type="button" class="filter need" data-need="data">Data pipelines & ETL</button>
+            <button type="button" class="filter need" data-need="vision">Computer vision & inspection</button>
+            <button type="button" class="filter need" data-need="ml">Machine learning models</button>
+            <button type="button" class="filter need" data-need="text">Text & report automation</button>
+            <button type="button" class="filter need" data-need="dash">Dashboards</button>
+            <button type="button" class="filter need" data-need="tools">Developer & desktop tools</button>
+            <button type="button" class="filter need" data-need="robot">Robotics: ROS, LiDAR, SLAM</button>
+        </div>
+
+        <div class="cards" id="serviceCards">
+            <article class="card service" data-reveal data-service="data">
+                <div class="card__icon"><i class="fas fa-database"></i></div>
+                <h3>Data pipelines & ETL</h3>
+                <p class="service__problem">Your data lives in scattered files, databases and APIs, and reports are stitched together by hand.</p>
+                <ul class="service__list"><li>Spark / Airflow pipelines, scheduled and monitored</li><li>Clean, joined tables ready for analytics</li><li>AWS (S3) or on-prem</li></ul>
+                <div class="service__actions">
+                    <button type="button" class="card__demo" data-demo="pipeline"><i class="fas fa-play"></i> Run the pipeline demo</button>
+                    <a class="card__link" href="mailto:yunuseysr@gmail.com?subject=Project%20idea%3A%20Data%20pipelines%20%26%20ETL&amp;body=Hi%20Yunus%2C%0A%0AI%27m%20looking%20for%20help%20with%20a%20data%20pipeline.%0A%0A"><i class="fas fa-envelope"></i> Let's talk</a>
+                </div>
+            </article>
+
+            <article class="card service" data-reveal data-service="vision">
+                <div class="card__icon"><i class="fas fa-eye"></i></div>
+                <h3>Computer vision & inspection</h3>
+                <p class="service__problem">You want a camera to recognise, count or check products — on a line, in a store, on a robot.</p>
+                <ul class="service__list"><li>OpenCV pipelines and CNN models</li><li>Real-time inference on a camera stream</li><li>Classification, detection, quality checks</li></ul>
+                <div class="service__actions">
+                    <button type="button" class="card__demo" data-demo="biscuit"><i class="fas fa-play"></i> Try the biscuit classifier</button>
+                    <a class="card__link" href="mailto:yunuseysr@gmail.com?subject=Project%20idea%3A%20Computer%20vision%20%26%20inspection&amp;body=Hi%20Yunus%2C%0A%0AI%27m%20looking%20for%20help%20with%20computer%20vision.%0A%0A"><i class="fas fa-envelope"></i> Let's talk</a>
+                </div>
+            </article>
+
+            <article class="card service" data-reveal data-service="ml">
+                <div class="card__icon"><i class="fas fa-brain"></i></div>
+                <h3>Machine learning models</h3>
+                <p class="service__problem">You have data and a decision you would like to automate or predict.</p>
+                <ul class="service__list"><li>Feature engineering, model training and evaluation</li><li>Clear metrics you can explain to the business</li><li>A simple API or batch job to use it</li></ul>
+                <div class="service__actions">
+                    <a class="card__demo" href="#projects" data-filter-jump="ai"><i class="fas fa-arrow-right"></i> See AI projects</a>
+                    <a class="card__link" href="mailto:yunuseysr@gmail.com?subject=Project%20idea%3A%20Machine%20learning%20models&amp;body=Hi%20Yunus%2C%0A%0AI%27m%20looking%20for%20help%20with%20a%20machine%20learning%20model.%0A%0A"><i class="fas fa-envelope"></i> Let's talk</a>
+                </div>
+            </article>
+
+            <article class="card service" data-reveal data-service="text">
+                <div class="card__icon"><i class="fas fa-file-alt"></i></div>
+                <h3>Text & report automation</h3>
+                <p class="service__problem">People spend hours reading, counting and summarising documents and writing the same report every week.</p>
+                <ul class="service__list"><li>Text statistics, keyword and sentiment analysis</li><li>PDF / document processing</li><li>Automatically generated reports</li></ul>
+                <div class="service__actions">
+                    <button type="button" class="card__demo" data-demo="text"><i class="fas fa-play"></i> Try TextSmith</button>
+                    <a class="card__link" href="mailto:yunuseysr@gmail.com?subject=Project%20idea%3A%20Text%20%26%20report%20automation&amp;body=Hi%20Yunus%2C%0A%0AI%27m%20looking%20for%20help%20with%20text%20or%20report%20automation.%0A%0A"><i class="fas fa-envelope"></i> Let's talk</a>
+                </div>
+            </article>
+
+            <article class="card service" data-reveal data-service="dash">
+                <div class="card__icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Dashboards</h3>
+                <p class="service__problem">The numbers exist, but nobody sees them in one place.</p>
+                <ul class="service__list"><li>Self-hosted web dashboards</li><li>Live data from APIs or your database</li><li>Charts people actually read</li></ul>
+                <div class="service__actions">
+                    <a class="card__demo" href="https://github.com/yunuseysr/fred-data" target="_blank" rel="noopener"><i class="fab fa-github"></i> See the FRED dashboard</a>
+                    <a class="card__link" href="mailto:yunuseysr@gmail.com?subject=Project%20idea%3A%20Dashboards&amp;body=Hi%20Yunus%2C%0A%0AI%27m%20looking%20for%20help%20with%20a%20dashboard.%0A%0A"><i class="fas fa-envelope"></i> Let's talk</a>
+                </div>
+            </article>
+
+            <article class="card service" data-reveal data-service="tools">
+                <div class="card__icon"><i class="fas fa-tools"></i></div>
+                <h3>Developer & desktop tools</h3>
+                <p class="service__problem">Your team repeats the same clicks every day in the editor or on the desktop.</p>
+                <ul class="service__list"><li>GNOME Shell extensions</li><li>VS Code extensions</li><li>Small workflow tools that remove daily friction</li></ul>
+                <div class="service__actions">
+                    <button type="button" class="card__demo" data-demo="gridtile"><i class="fas fa-play"></i> Try Grid Tile</button>
+                    <a class="card__link" href="mailto:yunuseysr@gmail.com?subject=Project%20idea%3A%20Developer%20%26%20desktop%20tools&amp;body=Hi%20Yunus%2C%0A%0AI%27m%20looking%20for%20help%20with%20a%20developer%20or%20desktop%20tool.%0A%0A"><i class="fas fa-envelope"></i> Let's talk</a>
+                </div>
+            </article>
+
+            <article class="card service" data-reveal data-service="robot">
+                <div class="card__icon"><i class="fas fa-robot"></i></div>
+                <h3>Robotics: ROS, LiDAR, SLAM</h3>
+                <p class="service__problem">A robot or vehicle needs to map a space and know where it is.</p>
+                <ul class="service__list"><li>ROS nodes and sensor integration</li><li>LiDAR mapping and SLAM</li><li>Face recognition on the robot</li></ul>
+                <div class="service__actions">
+                    <button type="button" class="card__demo" data-demo="slam"><i class="fas fa-play"></i> Try the LiDAR demo</button>
+                    <a class="card__link" href="mailto:yunuseysr@gmail.com?subject=Project%20idea%3A%20Robotics%3A%20ROS%2C%20LiDAR%2C%20SLAM&amp;body=Hi%20Yunus%2C%0A%0AI%27m%20looking%20for%20help%20with%20robotics.%0A%0A"><i class="fas fa-envelope"></i> Let's talk</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
     <!-- Contact -->
     <section class="section" id="contact">
         <div class="contact" data-reveal>
@@ -428,5 +566,6 @@
 
 <script src="js/scripts.js"></script>
 <script src="js/lab.js" defer></script>
+<script src="js/github.js" defer></script>
 </body>
 </html>

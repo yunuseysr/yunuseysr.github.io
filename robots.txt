@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /for-mylove/
+Disallow: /for-play/
+
+Sitemap: https://yunuseysr.github.io/sitemap.xml

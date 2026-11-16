@@ -1,0 +1,44 @@
+{
+  "user": "yunuseysr",
+  "_comment": "Live GitHub repo list (js/github.js). New public repos show up automatically. 'featured' repos already have a card in the Open Source section and only get live stats there; 'exclude' hides a repo; 'descriptions' replaces empty or long GitHub descriptions.",
+  "featured": ["gnome-grid-tile", "gnome-topbar-telegram", "rimtone", "fred-data"],
+  "exclude": [
+    "yunuseysr",
+    "yunuseysr.github.io",
+    "gaih_pybtcmp-29",
+    "training_101",
+    "VeriGorsellestirmeGlobalAIHub",
+    "HackerRank-AtakanKizilyuce",
+    "code-space"
+  ],
+  "descriptions": {
+    "Cins-Biscuits": {
+      "en": "CNN that classifies biscuits by shape and type, with real-time OpenCV classification.",
+      "tr": "Bisküvileri şekline ve türüne göre sınıflandıran CNN; OpenCV ile gerçek zamanlı sınıflandırma."
+    },
+    "myprojectecommerce": {
+      "en": "Olist e-commerce dataset through a Spark & Airflow pipeline on AWS S3.",
+      "tr": "Olist e-ticaret veri seti için AWS S3 üzerinde Spark & Airflow veri hattı."
+    },
+    "Catering-Scheduling-Problem": {
+      "en": "A catering scheduling problem solved with multithreading in Java.",
+      "tr": "Java'da çok iş parçacığıyla (multithreading) çözülen bir catering planlama problemi."
+    },
+    "gaih-data_analyze": {
+      "en": "Analysis of the data provided by Global AI Hub and EnerjiSA.",
+      "tr": "Global AI Hub ve EnerjiSA tarafından sağlanan verinin analizi."
+    },
+    "advent-of-Code-2021": {
+      "en": "Advent of Code 2021 puzzle solutions.",
+      "tr": "Advent of Code 2021 bulmaca çözümleri."
+    },
+    "pomodoro_app": {
+      "en": "A Pomodoro timer app.",
+      "tr": "Bir Pomodoro zamanlayıcı uygulaması."
+    },
+    "project-todo": {
+      "en": "GNOME task manager that puts your Jira sprint and your own work on one board.",
+      "tr": "Jira sprint'ini ve kendi işlerini tek panoda toplayan GNOME görev yöneticisi."
+    }
+  }
+}

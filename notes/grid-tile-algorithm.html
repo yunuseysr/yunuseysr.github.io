@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="How the Grid Tile GNOME extension picks columns and rows for any number of windows, with one small scoring function."/>
+    <meta name="theme-color" content="#0a0e1a"/>
+    <title data-title-en="How Grid Tile picks a grid — Notes" data-title-tr="Grid Tile ızgarayı nasıl seçiyor — Notlar">How Grid Tile picks a grid — Notes</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg"/>
+    <link rel="canonical" href="https://yunuseysr.github.io/notes/grid-tile-algorithm.html"/>
+    <meta property="og:title" content="How Grid Tile picks a grid"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:image" content="https://yunuseysr.github.io/assets/img/og-card.jpg"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <script src="../js/icons.js" defer></script>
+    <link href="../css/styles.css" rel="stylesheet"/>
+    <link href="../tools/tools.css" rel="stylesheet"/>
+    <link href="notes.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="tbar">
+    <a class="tbar__home" href="./" data-keep-lang><i class="fas fa-arrow-left"></i> <span data-l="en">Notes</span><span data-l="tr">Notlar</span></a>
+    <div class="tbar__right"><div class="lang-toggle"><a href="?lang=en" data-lang="en">EN</a><a href="?lang=tr" data-lang="tr">TR</a></div></div>
+</header>
+
+<main class="nmain">
+<article class="post" data-l="en">
+    <span class="nmeta">GNOME · Algorithms · November 2026</span>
+    <h1>How Grid Tile picks a grid</h1>
+    <p class="lede">You ask for 6 windows; it gives you 3 × 2. You ask for 8; you get 4 × 2. On a portrait monitor the same 6
+        become 2 × 3. All of it comes from one small scoring function.</p>
+
+    <h2>The problem</h2>
+    <p><a href="https://github.com/yunuseysr/gnome-grid-tile">Grid Tile</a> is a GNOME Shell extension that puts the
+        windows on your screen into an even grid. The interesting part is not moving windows — Mutter does that — but
+        deciding <strong>how many columns and rows</strong> to use for <code>n</code> windows on a screen of a given size.</p>
+    <p>A fixed table (6 → 3 × 2, 8 → 4 × 2…) breaks as soon as the monitor is portrait, ultrawide, or has a tall top
+        bar. So the extension tries every possibility and keeps the best one.</p>
+
+    <h2>The rule</h2>
+    <p>For every column count from 1 to <code>n</code>, the rows follow: <code>rows = ceil(n / cols)</code>. Then two
+        things are scored:</p>
+    <ol>
+        <li><strong>Cell shape.</strong> A browser page or an editor reads best around 4 : 3. The distance from that
+            shape is measured on a log scale, so “twice too wide” and “twice too tall” cost the same.</li>
+        <li><strong>Empty cells.</strong> 7 windows in a 4 × 2 grid leave one cell empty. Each empty cell costs 0.5.</li>
+    </ol>
+    <p>A grid with a <em>completely</em> empty row is never allowed — that is just a smaller grid with wasted space.</p>
+<pre><code>export function bestGrid(n, width, height) {
+    let best = null;
+    for (let cols = 1; cols &lt;= n; cols++) {
+        const rows = Math.ceil(n / cols);
+        if ((rows - 1) * cols &gt;= n)
+            continue;                      // a whole row would be empty
+        const aspect = (width / cols) / (height / rows);
+        const score = Math.abs(Math.log(aspect / (4 / 3))) + 0.5 * (cols * rows - n);
+        if (!best || score &lt; best.score)
+            best = {cols, rows, score};
+    }
+    return best;
+}</code></pre>
+
+    <h2>What it chooses</h2>
+    <table>
+        <thead><tr><th>Windows</th><th>1920 × 1050 (landscape)</th><th>1080 × 1890 (portrait)</th></tr></thead>
+        <tbody>
+            <tr><td>4</td><td>2 × 2</td><td>1 × 4</td></tr>
+            <tr><td>5</td><td>3 × 2</td><td>1 × 5</td></tr>
+            <tr><td>6</td><td>3 × 2</td><td>2 × 3</td></tr>
+            <tr><td>8</td><td>4 × 2</td><td>2 × 4</td></tr>
+            <tr><td>9</td><td>3 × 3</td><td>2 × 5</td></tr>
+            <tr><td>12</td><td>4 × 3</td><td>2 × 6</td></tr>
+        </tbody>
+    </table>
+    <p>Look at 9 windows on the portrait screen: a “perfect” 3 × 3 would make each cell very narrow, so the score
+        prefers 2 × 5 and accepts one empty cell. That trade-off is exactly what the 0.5 weight decides.</p>
+
+    <h2>Two details that matter in practice</h2>
+    <p><strong>Stable cells.</strong> The extension takes the <em>most recently used</em> windows, but places them in the
+        order they were <em>opened</em>. Re-tiling therefore never shuffles windows around — your terminal stays in the
+        same corner.</p>
+    <p><strong>Wayland and maximized windows.</strong> Unmaximizing a window restores its old size asynchronously and can
+        override a resize sent right after it. Grid Tile simply applies the geometry once more after 200 ms. Not elegant,
+        but reliable.</p>
+
+    <div class="try"><i class="fas fa-play"></i> <span>Try it in the browser: <a href="../?demo=gridtile#opensource">Grid Tile live demo</a>
+        · or install it from <a href="https://github.com/yunuseysr/gnome-grid-tile">GitHub</a>.</span></div>
+</article>
+
+<article class="post" data-l="tr" hidden>
+    <span class="nmeta">GNOME · Algoritmalar · Kasım 2026</span>
+    <h1>Grid Tile ızgarayı nasıl seçiyor</h1>
+    <p class="lede">6 pencere istiyorsun, 3 × 2 veriyor. 8 istiyorsun, 4 × 2 geliyor. Dikey monitörde aynı 6 pencere
+        2 × 3 oluyor. Hepsi tek bir küçük puanlama fonksiyonundan çıkıyor.</p>
+
+    <h2>Problem</h2>
+    <p><a href="https://github.com/yunuseysr/gnome-grid-tile">Grid Tile</a>, ekrandaki pencereleri eşit bir ızgaraya dizen
+        bir GNOME Shell eklentisi. İşin ilginç kısmı pencereleri taşımak değil (onu Mutter yapıyor), belirli boyuttaki bir
+        ekranda <code>n</code> pencere için <strong>kaç sütun ve kaç satır</strong> kullanılacağına karar vermek.</p>
+    <p>Sabit bir tablo (6 → 3 × 2, 8 → 4 × 2…) monitör dikey, çok geniş ya da üst barı yüksek olduğu anda bozulur. Bu yüzden
+        eklenti bütün olasılıkları deneyip en iyisini seçiyor.</p>
+
+    <h2>Kural</h2>
+    <p>1'den <code>n</code>'ye kadar her sütun sayısı için satır sayısı kendiliğinden çıkar: <code>rows = ceil(n / cols)</code>.
+        Sonra iki şey puanlanır:</p>
+    <ol>
+        <li><strong>Hücre şekli.</strong> Bir web sayfası ya da editör yaklaşık 4 : 3 oranında rahat okunur. Bu orandan
+            uzaklık logaritmik ölçekte hesaplanır; “iki kat geniş” ile “iki kat uzun” aynı cezayı alır.</li>
+        <li><strong>Boş hücreler.</strong> 4 × 2 ızgarada 7 pencere bir hücreyi boş bırakır. Her boş hücre 0,5 puan cezadır.</li>
+    </ol>
+    <p><em>Tamamen</em> boş bir satır bırakan ızgaraya hiç izin verilmez; o aslında boşa yer harcayan daha küçük bir ızgaradır.</p>
+<pre><code>export function bestGrid(n, width, height) {
+    let best = null;
+    for (let cols = 1; cols &lt;= n; cols++) {
+        const rows = Math.ceil(n / cols);
+        if ((rows - 1) * cols &gt;= n)
+            continue;                      // koca bir satır boş kalırdı
+        const aspect = (width / cols) / (height / rows);
+        const score = Math.abs(Math.log(aspect / (4 / 3))) + 0.5 * (cols * rows - n);
+        if (!best || score &lt; best.score)
+            best = {cols, rows, score};
+    }
+    return best;
+}</code></pre>
+
+    <h2>Neyi seçiyor</h2>
+    <table>
+        <thead><tr><th>Pencere</th><th>1920 × 1050 (yatay)</th><th>1080 × 1890 (dikey)</th></tr></thead>
+        <tbody>
+            <tr><td>4</td><td>2 × 2</td><td>1 × 4</td></tr>
+            <tr><td>5</td><td>3 × 2</td><td>1 × 5</td></tr>
+            <tr><td>6</td><td>3 × 2</td><td>2 × 3</td></tr>
+            <tr><td>8</td><td>4 × 2</td><td>2 × 4</td></tr>
+            <tr><td>9</td><td>3 × 3</td><td>2 × 5</td></tr>
+            <tr><td>12</td><td>4 × 3</td><td>2 × 6</td></tr>
+        </tbody>
+    </table>
+    <p>Dikey ekrandaki 9 pencereye bak: “kusursuz” 3 × 3 her hücreyi çok daraltırdı, bu yüzden puanlama bir boş hücreyi
+        kabul edip 2 × 5'i seçiyor. Bu dengeyi belirleyen şey tam olarak o 0,5 katsayısı.</p>
+
+    <h2>Pratikte önemli iki ayrıntı</h2>
+    <p><strong>Sabit hücreler.</strong> Eklenti <em>en son kullanılan</em> pencereleri alıyor ama onları <em>açılış</em>
+        sırasına göre yerleştiriyor. Böylece tekrar dizdiğinde pencereler yer değiştirmiyor; terminalin hep aynı köşede kalıyor.</p>
+    <p><strong>Wayland ve büyütülmüş pencereler.</strong> Bir pencereyi küçültmek eski boyutunu eşzamansız geri yüklüyor ve
+        hemen ardından gönderilen yeniden boyutlandırmayı ezebiliyor. Grid Tile geometriyi 200 ms sonra bir kez daha uyguluyor.
+        Zarif değil ama güvenilir.</p>
+
+    <div class="try"><i class="fas fa-play"></i> <span>Tarayıcıda dene: <a href="../tr/?demo=gridtile#opensource">Grid Tile canlı demo</a>
+        · ya da <a href="https://github.com/yunuseysr/gnome-grid-tile">GitHub</a>'dan kur.</span></div>
+</article>
+</main>
+<footer class="tfoot">Yunus Emre Yaşar · <a href="../">yunuseysr.github.io</a></footer>
+<script src="notes.js"></script>
+</body>
+</html>
