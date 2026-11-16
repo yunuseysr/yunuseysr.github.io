@@ -1,7 +1,7 @@
 {
   "user": "yunuseysr",
   "_comment": "Live GitHub repo list (js/github.js). New public repos show up automatically. 'featured' repos already have a card in the Open Source section and only get live stats there; 'exclude' hides a repo; 'descriptions' replaces empty or long GitHub descriptions.",
-  "featured": ["gnome-grid-tile", "gnome-topbar-telegram", "rimtone", "fred-data"],
+  "featured": ["gnome-grid-tile", "gnome-topbar-telegram", "project-todo", "rimtone", "fred-data"],
   "exclude": [
     "yunuseysr",
     "yunuseysr.github.io",
